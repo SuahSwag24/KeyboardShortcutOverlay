@@ -1,14 +1,13 @@
 from PyQt6.QtCore import QObject, pyqtSignal
 from pynput import keyboard
 from utils.key_utils import normalize_keys
-from config.settings import MODIFIERS
 
 class KeySignalEmitter(QObject):
     #   Intiating Signals
     keys_changed = pyqtSignal(set)
     quit_app = pyqtSignal()
 
-    #   Methods
+    #   Signal methods to detect key presses and releases
     def __init__(self):
         super().__init__()
         self.keys_pressed = set()
