@@ -6,7 +6,6 @@ from components.overlay import Overlay
 app = QApplication(sys.argv)
 overlay = Overlay()
 emitter = KeySignalEmitter()
-
 emitter.keys_changed.connect(overlay.update_keys)
 emitter.quit_app.connect(app.quit)
 

@@ -1,18 +1,10 @@
-{
-    "ctrl": [
-        {"combo": "Ctrl + C", "description": "Copy"},
-        {"combo": "Ctrl + V", "description": "Paste"},
-        {"combo": "Ctrl + Z", "description": "Undo"},
-        {"combo": "Ctrl + S", "description": "Save"}
-    ],
-    "alt": [
-        {"combo": "Alt + F4", "description": "Close Window"},
-        {"combo": "Alt + Tab", "description": "Switch Window"}
-    ],
-    "ctrl+alt": [
-        {"combo": "Ctrl + Alt + Del", "description": "Three-finger-salute"}
-    ],
-    "ctrl+shift": [
-        {"combo": "Ctrl + Shift + Esc", "description": "Open Task Manager"}
-    ]
-}
+[
+    {"modifier": "ctrl", "combo": "Ctrl + C", "description": "Copy"},
+    {"modifier": "ctrl", "combo": "Ctrl + V", "description": "Paste"},
+    {"modifier": "ctrl", "combo": "Ctrl + Z", "description": "Undo"},
+    {"modifier": "ctrl", "combo": "Ctrl + S", "description": "Save"},
+    {"modifier": "alt", "combo": "Alt + F4", "description": "Close Window"},
+    {"modifier": "alt", "combo": "Alt + Tab", "description": "Switch Window"},
+    {"modifier": "ctrl+alt", "combo": "Ctrl + Alt + Del", "description": "Three-finger-salute"},
+    {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + Esc", "description": "Open Task Manager"}
+]

@@ -1,5 +1,5 @@
 from pynput import keyboard
-from config.settings import KEY_ORDER, MODIFIER_NORMALIZE
+from config.settings import KEY_ORDER, MODIFIER_MAP, MODIFIER_NORMALIZE, load_shortcuts
 
 #   Format keys from keycode to display
 def format_keys(keys):

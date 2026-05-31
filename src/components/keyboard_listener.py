@@ -1,11 +1,13 @@
 from PyQt6.QtCore import QObject, pyqtSignal
 from pynput import keyboard
-from utils.key_utils import normalize_keys
+from config.settings import MODIFIERS, SHORTCUTS
+from utils.key_utils import format_keys, normalize_keys, normalize_modifiers
 
 class KeySignalEmitter(QObject):
     #   Intiating Signals
     keys_changed = pyqtSignal(set)
     quit_app = pyqtSignal()
+    shortcut_executed = pyqtSignal(str, str)
 
     #   Signal methods to detect key presses and releases
     def __init__(self):
@@ -24,6 +26,7 @@ class KeySignalEmitter(QObject):
         if normalized not in self.keys_pressed:
             self.keys_pressed.add(normalized)
             self.keys_changed.emit(self.keys_pressed)
+            self.check_shortcuts_executed()
 
     def on_release(self, key):
         if key == keyboard.Key.esc:
@@ -32,3 +35,15 @@ class KeySignalEmitter(QObject):
         
         self.keys_pressed.discard(normalize_keys(key))
         self.keys_changed.emit(self.keys_pressed)
+
+    def check_shortcuts_executed(self):
+        if not self.keys_pressed:
+            return
+
+        current_combo = format_keys(self.keys_pressed)
+        description = SHORTCUTS.get(current_combo, None)
+        print(description)
+        if description:
+            self.shortcut_executed.emit(current_combo, description)
+            print(f"Executed shortcut: {current_combo} -> {description}")
+            
