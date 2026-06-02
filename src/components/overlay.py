@@ -73,69 +73,71 @@ class Overlay(QWidget):
             widget = item.widget()
             if widget is not None:
                 widget.deleteLater()
+        
+    def _build_shortcut_list(self, modifiers):
+        self.clear_shortcuts()
+        shortcuts = SHORTCUTS.get(modifiers, [])
+
+        if not shortcuts:
+            label = QLabel(f"No shortcuts defined for this modifier.")
+            label.setStyleSheet("padding: 10px 16px")
+            self.shortcut_layout.addWidget(label)
+            self.main_container.setFixedHeight(SHORTCUT_ROW_HEIGHT + TITLE_HEIGHT)
+            self.show()
+
+        for combo, description in shortcuts:
+            row_widget = QWidget()
+            row_widget.setFixedHeight(SHORTCUT_ROW_HEIGHT)
+
+            row_layout = QHBoxLayout(row_widget)
+            row_layout.setContentsMargins(16, 0, 16, 0)
+
+            label = QLabel(f"{combo} -> {description}")
+            label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+
+            row_widget.setProperty("combo", combo)
+            row_widget.setProperty("label_widget", label)
+
+            row_layout.addWidget(label)
+            self.shortcut_layout.addWidget(row_widget)
+
+        self.current_static_height = (len(shortcuts) * SHORTCUT_ROW_HEIGHT) + TITLE_HEIGHT
     
     def update_keys(self, keys_pressed):
+        modifiers_held = frozenset(key for key in keys_pressed if key in MODIFIERS)
+        self.current_modifier = normalize_modifiers(modifiers_held)
+
         if self.is_animating:
             return
-
-        if keys_pressed:
-            modifiers_held = frozenset(key for key in keys_pressed if key in MODIFIERS)
-            modifiers_held = normalize_modifiers(modifiers_held)
-
-            if modifiers_held:
-                shortcuts = SHORTCUTS.get(modifiers_held, None)
-                self.clear_shortcuts()
-
-                if shortcuts:
-                    for combo, description in shortcuts:
-                        row_widget = QWidget()
-                        row_widget.setFixedHeight(SHORTCUT_ROW_HEIGHT)
-
-                        row_layout = QHBoxLayout(row_widget)
-                        row_layout.setContentsMargins(16, 0, 16, 0)
-
-                        label = QLabel(f"{combo} -> {description}")
-                        label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
-
-                        row_widget.setProperty("combo", combo)
-                        row_widget.setProperty("label_widget", label)
-
-                        row_layout.addWidget(label)
-                        self.shortcut_layout.addWidget(row_widget)
-
-                    self.current_static_height = (len(shortcuts) * SHORTCUT_ROW_HEIGHT) + TITLE_HEIGHT
-                    self.main_container.setFixedHeight(self.current_static_height)
-                    self.show()
-                else:
-                    label = QLabel(f"No shortcuts defined for this modiifer.")
-                    label.setStyleSheet("padding: 10px 16px")
-                    self.shortcut_layout.addWidget(label)
-                    self.main_container.setFixedHeight(SHORTCUT_ROW_HEIGHT + TITLE_HEIGHT)
-                    self.show()
-            else:
-                self.hide()
+        
+        if keys_pressed and self.current_modifier:
+            self._build_shortcut_list(self.current_modifier)
+            self.main_container.setFixedHeight(self.current_static_height)
+            self.title.setStyleSheet("color: #ffffff; padding: 10px 16px;")
+            self.show()
         else:
             self.hide()
 
     def flash_shortcut(self, combo, description):
         if self.active_animations:
             self._interrupt_current_animation()
-
+            self._build_shortcut_list(self.current_modifier)
+        
         self.is_animating = True
-        target_row_label = None
+        self.target_row_label = None
 
         for i in range(self.shortcut_layout.count()):
             row_widget = self.shortcut_layout.itemAt(i).widget()
+            
             if row_widget:
                 label_widget = row_widget.property("label_widget")
                 row_combo = row_widget.property("combo")
 
                 if label_widget:
                     label_widget.setGraphicsEffect(None)
-
                     if row_combo == combo:
                         target_row_label = label_widget
-                        label_widget.setStyleSheet("color: #ffffff;") 
+                        label_widget.setStyleSheet("color: #ffffff;")
                     else:
                         label_widget.setStyleSheet("color: transparent;")
 
@@ -166,9 +168,13 @@ class Overlay(QWidget):
         self.is_animating = False
         self.active_animations.clear()
 
-        self.title.setStyleSheet("color: #ffffff; padding: 10px 16px;")
-        self.hide()
-        self.clear_shortcuts()
+        if self.current_modifier:
+            self.title.setStyleSheet("color: #ffffff; padding: 10px 16px;")
+            self.update_keys(list(self.current_modifier))
+        else:
+            self.title.setStyleSheet("color: #ffffff; padding: 10px 16px;")
+            self.hide()
+            self.clear_shortcuts()
 
     def _interrupt_current_animation(self):
         for animation in self.active_animations:
