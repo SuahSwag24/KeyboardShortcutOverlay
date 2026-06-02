@@ -3,8 +3,10 @@
     {"modifier": "ctrl", "combo": "Ctrl + V", "description": "Paste"},
     {"modifier": "ctrl", "combo": "Ctrl + Z", "description": "Undo"},
     {"modifier": "ctrl", "combo": "Ctrl + S", "description": "Save"},
+    {"modifier": "ctrl", "combo": "Ctrl + Backspace", "description": "Delete Word Backward"},
     {"modifier": "alt", "combo": "Alt + F4", "description": "Close Window"},
     {"modifier": "alt", "combo": "Alt + Tab", "description": "Switch Window"},
+    {"modifier": "alt+shift", "combo": "Alt + Shift + Tab", "description": "Switch Previous Window"},
     {"modifier": "ctrl+alt", "combo": "Ctrl + Alt + Del", "description": "Three-finger-salute"},
     {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + Esc", "description": "Open Task Manager"}
 ]

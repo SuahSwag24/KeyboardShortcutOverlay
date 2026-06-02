@@ -1,6 +1,6 @@
 from PyQt6.QtCore import QObject, pyqtSignal
 from pynput import keyboard
-from config.settings import MODIFIERS, SHORTCUTS
+from config.settings import MODIFIERS, SHORTCUTS, SHORTCUTS_FLAT
 from utils.key_utils import format_keys, normalize_keys, normalize_modifiers
 
 class KeySignalEmitter(QObject):
@@ -41,9 +41,7 @@ class KeySignalEmitter(QObject):
             return
 
         current_combo = format_keys(self.keys_pressed)
-        description = SHORTCUTS.get(current_combo, None)
-        print(description)
+        description = SHORTCUTS_FLAT.get(current_combo, None)
         if description:
             self.shortcut_executed.emit(current_combo, description)
-            print(f"Executed shortcut: {current_combo} -> {description}")
             

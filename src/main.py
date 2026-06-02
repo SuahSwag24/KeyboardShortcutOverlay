@@ -8,6 +8,7 @@ overlay = Overlay()
 emitter = KeySignalEmitter()
 emitter.keys_changed.connect(overlay.update_keys)
 emitter.quit_app.connect(app.quit)
+emitter.shortcut_executed.connect(overlay.flash_shortcut)
 
 overlay.show()
 emitter.start()

@@ -2,7 +2,7 @@ from pynput import keyboard
 import json
 
 #   Shortcut loader
-def load_shortcuts(path="src/config/shortcuts.json"):
+def load_shortcuts(path="KeyboardShortcutOverlay/src/config/shortcuts.json"):
     with open(path, "r") as f:
         raw = json.load(f)
 
@@ -22,10 +22,11 @@ def load_shortcuts(path="src/config/shortcuts.json"):
     return flat, grouped
 
 #   Overlay settings specifications
+OVERLAY_HEIGHT = 300
 OVERLAY_WIDTH = 400
 OVERLAY_MARGIN_RIGHT = 40
-OVERLAY_ANCHOR_Y = 400
-SHORTCUT_ROW_HEIGHT = 40
+OVERLAY_ANCHOR_Y = 50
+SHORTCUT_ROW_HEIGHT = 30
 TITLE_HEIGHT = 40
 
 #   Defining modifier keys in keycode
