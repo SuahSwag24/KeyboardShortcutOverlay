@@ -38,6 +38,7 @@ class KeySignalEmitter(QObject):
 
         current_combo = format_keys(self.keys_pressed)
         description = SHORTCUTS_FLAT.get(current_combo, None)
+        
         if description:
             self.shortcut_executed.emit(current_combo, description)
             

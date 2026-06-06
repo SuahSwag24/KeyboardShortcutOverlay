@@ -1,6 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QGraphicsOpacityEffect, QHBoxLayout, QWidget, QLabel, QVBoxLayout
-from PyQt6.QtCore import QEasingCurve, QPropertyAnimation, Qt
+from PyQt6.QtWidgets import QHBoxLayout, QWidget, QLabel, QVBoxLayout
+from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QGuiApplication
+from animations.flash_shortcut_animation import FlashShortcutAnimation
 from utils.key_utils import format_keys, normalize_modifiers
 from config.settings import MODIFIER_NORMALIZE, MODIFIERS, OVERLAY_ANCHOR_Y, OVERLAY_MARGIN_RIGHT, OVERLAY_WIDTH, SHORTCUTS, TITLE_HEIGHT, SHORTCUT_ROW_HEIGHT
 
@@ -10,8 +11,8 @@ class Overlay(QWidget):
         super().__init__()
 
         #   Overlay states
-        self.is_animating = False
-        self.active_animations = []
+        self.animation_manager = FlashShortcutAnimation(self)
+        self.current_modifier = None
 
         self.setWindowFlags(
             Qt.WindowType.FramelessWindowHint |
@@ -107,7 +108,7 @@ class Overlay(QWidget):
         modifiers_held = frozenset(key for key in keys_pressed if key in MODIFIERS)
         self.current_modifier = normalize_modifiers(modifiers_held)
 
-        if self.is_animating:
+        if self.animation_manager.is_animating:
             return
         
         if keys_pressed and self.current_modifier:
@@ -118,67 +119,6 @@ class Overlay(QWidget):
         else:
             self.hide()
 
-    def flash_shortcut(self, combo, description):
-        if self.active_animations:
-            self._interrupt_current_animation()
-            self._build_shortcut_list(self.current_modifier)
-        
-        self.is_animating = True
-        self.target_row_label = None
-
-        for i in range(self.shortcut_layout.count()):
-            row_widget = self.shortcut_layout.itemAt(i).widget()
-            
-            if row_widget:
-                label_widget = row_widget.property("label_widget")
-                row_combo = row_widget.property("combo")
-
-                if label_widget:
-                    label_widget.setGraphicsEffect(None)
-                    if row_combo == combo:
-                        target_row_label = label_widget
-                        label_widget.setStyleSheet("color: #ffffff;")
-                    else:
-                        label_widget.setStyleSheet("color: transparent;")
-
-        self.main_container.setFixedHeight(self.current_static_height)
-        self.show()
-        self.title.setStyleSheet("color: transparent; padding: 10px 16px;")
-
-        if target_row_label:
-            self.animate_row_fade(target_row_label)
-        else:
-            self._on_fade_complete()
-
-    def animate_row_fade(self, label_widget):
-        effect = QGraphicsOpacityEffect(label_widget)
-        label_widget.setGraphicsEffect(effect)
-
-        animation = QPropertyAnimation(effect, b"opacity")
-        animation.setDuration(1500)
-        animation.setStartValue(1.0)
-        animation.setEndValue(0.0)
-        animation.setEasingCurve(QEasingCurve.Type.OutQuad)
-
-        animation.finished.connect(self._on_fade_complete)
-        self.active_animations.append(animation)
-        animation.start()
-
-    def _on_fade_complete(self):
-        self.is_animating = False
-        self.active_animations.clear()
-
-        if self.current_modifier:
-            self.title.setStyleSheet("color: #ffffff; padding: 10px 16px;")
-            self.update_keys(list(self.current_modifier))
-        else:
-            self.title.setStyleSheet("color: #ffffff; padding: 10px 16px;")
-            self.hide()
-            self.clear_shortcuts()
-
-    def _interrupt_current_animation(self):
-        for animation in self.active_animations:
-            animation.stop()
-        self.active_animations.clear()
-        self.is_animating = False
+    def animate_execute(self, combo, description):
+        self.animation_manager.flash_shortcut(combo, description)
         
