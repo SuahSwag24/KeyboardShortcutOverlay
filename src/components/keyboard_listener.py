@@ -28,11 +28,7 @@ class KeySignalEmitter(QObject):
             self.keys_changed.emit(self.keys_pressed)
             self.check_shortcuts_executed()
 
-    def on_release(self, key):
-        if key == keyboard.Key.esc:
-            self.quit_app.emit()
-            return False
-        
+    def on_release(self, key):        
         self.keys_pressed.discard(normalize_keys(key))
         self.keys_changed.emit(self.keys_pressed)
 
