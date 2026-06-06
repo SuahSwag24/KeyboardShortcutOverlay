@@ -33,8 +33,8 @@ TITLE_HEIGHT = 40
 MODIFIERS = {
     keyboard.Key.ctrl_l, keyboard.Key.ctrl_r,
     keyboard.Key.alt_l, keyboard.Key.alt_r,
-    keyboard.Key.shift_l, keyboard.Key.shift_r,
-    keyboard.Key.cmd_l, keyboard.Key.cmd_r
+    keyboard.Key.shift_l, keyboard.Key.shift_r, keyboard.Key.shift,
+    keyboard.Key.cmd
 }
 
 #   Mapping string representations to keycode for modifiers
@@ -42,21 +42,22 @@ MODIFIER_MAP = {
     "ctrl":  keyboard.Key.ctrl_l,
     "alt":   keyboard.Key.alt_l,
     "shift": keyboard.Key.shift_l,
-    "cmd":   keyboard.Key.cmd,
-    "win":   keyboard.Key.cmd_l
+    "cmd":   keyboard.Key.cmd
 }
 
 #   Normalize left and right modifiers to represent the same key for easier matching
 MODIFIER_NORMALIZE = {
     keyboard.Key.ctrl_r: keyboard.Key.ctrl_l,
     keyboard.Key.alt_r: keyboard.Key.alt_l,
-    keyboard.Key.shift_r: keyboard.Key.shift_l,
-    keyboard.Key.cmd_r: keyboard.Key.cmd_l
+    keyboard.Key.shift_r : keyboard.Key.shift_l,
+    keyboard.Key.shift : keyboard.Key.shift_l,
+    keyboard.Key.cmd_l : keyboard.Key.cmd,
+    keyboard.Key.cmd_r : keyboard.Key.cmd
 }
 
 #   Define order for displaying shortcuts in the overlay
 KEY_ORDER = [
-    "Ctrl", "Alt", "Shift", "Win", "Tab"
+    "Ctrl", "Alt", "Shift", "Cmd", "Tab"
 ]
 
 #   Establish shortcut JSON into program

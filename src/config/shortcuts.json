@@ -34,5 +34,8 @@
   {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + N", "description": "New Incognito/Private Window"},
   {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + Z", "description": "Redo"},
   {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + Left Arrow", "description": "Select Previous Word"},
-  {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + Right Arrow", "description": "Select Next Word"}
+  {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + Right Arrow", "description": "Select Next Word"},
+
+  {"modifier": "cmd", "combo": "Cmd + Tab", "description": "Open Task View"},
+  {"modifier": "cmd", "combo": "Cmd + D", "description": "Show Desktop"}
 ]
