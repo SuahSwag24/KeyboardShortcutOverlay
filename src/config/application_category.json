@@ -2,12 +2,12 @@
     "chrome.exe": {
         "application_name": "Google Chrome",
         "category": "browser",
-        "shortcut_file": ""
+        "shortcut_file": "KeyboardShortcutOverlay/src/config/shortcut_lists/browser_shortcuts.json"
     },
     "opera.exe": {
         "application_name": "Opera Browser",
         "category": "browser",
-        "shortcut_file": ""
+        "shortcut_file": "KeyboardShortcutOverlay/src/config/shortcut_lists/browser_shortcuts.json"
     },
 
     "Code.exe": {
