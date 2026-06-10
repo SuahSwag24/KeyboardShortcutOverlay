@@ -1,10 +1,10 @@
 from PyQt6.QtWidgets import QHBoxLayout, QWidget, QLabel, QVBoxLayout
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QGuiApplication
+from config.settings import MODIFIERS, OVERLAY_ANCHOR_Y, OVERLAY_MARGIN_RIGHT, OVERLAY_WIDTH, SHORTCUT_ROW_HEIGHT, TITLE_HEIGHT
+import utils.shortcut_loader_utils as shortcut_loader
 from animations.flash_shortcut_animation import FlashShortcutAnimation
-from utils.key_utils import format_keys, normalize_modifiers
-from config.settings import MODIFIER_NORMALIZE, MODIFIERS, OVERLAY_ANCHOR_Y, OVERLAY_MARGIN_RIGHT, OVERLAY_WIDTH, SHORTCUTS, TITLE_HEIGHT, SHORTCUT_ROW_HEIGHT
-
+from utils.key_utils import normalize_modifiers
 
 class Overlay(QWidget):
     def __init__(self):
@@ -77,7 +77,7 @@ class Overlay(QWidget):
         
     def _build_shortcut_list(self, modifiers):
         self.clear_shortcuts()
-        shortcuts = SHORTCUTS.get(modifiers, [])
+        shortcuts = shortcut_loader.SHORTCUTS.get(modifiers, [])
 
         if not shortcuts:
             label = QLabel(f"No shortcuts defined for this modifier.")

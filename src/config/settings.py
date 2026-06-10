@@ -1,25 +1,4 @@
 from pynput import keyboard
-import json
-
-#   Shortcut loader
-def load_shortcuts(path="KeyboardShortcutOverlay/src/config/shortcuts.json"):
-    with open(path, "r") as f:
-        raw = json.load(f)
-
-    flat = {}
-    grouped = {}
-
-    for action in raw:
-        # flat — for execution matching
-        flat[action["combo"]] = action["description"]
-
-        # grouped — for overlay display
-        mod = action["modifier"]
-        if mod not in grouped:
-            grouped[mod] = []
-        grouped[mod].append((action["combo"], action["description"]))
-
-    return flat, grouped
 
 #   Overlay settings specifications
 OVERLAY_HEIGHT = 300
@@ -59,14 +38,3 @@ MODIFIER_NORMALIZE = {
 KEY_ORDER = [
     "Ctrl", "Alt", "Shift", "Cmd", "Tab"
 ]
-
-#   Establish shortcut JSON into program
-def build_grouped_shortcuts(grouped):
-    result = {}
-    for key_combo, actions in grouped.items():
-        keys = frozenset(MODIFIER_MAP[k] for k in key_combo.split("+"))
-        result[keys] = actions
-    return result
-
-SHORTCUTS_FLAT, _grouped = load_shortcuts()
-SHORTCUTS = build_grouped_shortcuts(_grouped)
