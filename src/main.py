@@ -27,6 +27,8 @@ emitter.quit_app.connect(app.quit)
 emitter.shortcut_executed.connect(overlay.animate_execute)
 config_menu.general_tab.opacity_changed.connect(overlay.set_opacity)
 config_menu.general_tab.text_opacity_changed.connect(overlay.set_text_opacity)
+config_menu.general_tab.font_size_changed.connect(overlay.set_font_size)
+config_menu.general_tab.list_item_count_changed.connect(overlay.set_list_item_count)
 
 overlay.show()
 emitter.start()

@@ -13,6 +13,8 @@ class Overlay(QWidget):
         config = load_user_config()
         self._bg_alpha = int(config.get("opacity", 0.3) * 255)
         self._text_alpha = int(config.get("text_opacity", 1.0) * 255)
+        self._font_size = config.get("font_size", 14)
+        self._list_item_count = config.get("list_item_count", 10)
 
         #   Overlay states
         self.animation_manager = FlashShortcutAnimation(self)
@@ -82,6 +84,7 @@ class Overlay(QWidget):
     def _build_shortcut_list(self, modifiers):
         self.clear_shortcuts()
         shortcuts = shortcut_loader.SHORTCUTS.get(modifiers, [])
+        shortcuts = shortcuts[:self._list_item_count]
 
         if not shortcuts:
             label = QLabel(f"No shortcuts defined for this modifier.")
@@ -130,10 +133,16 @@ class Overlay(QWidget):
         self._bg_alpha = int(value * 255)
         self._apply_stylesheet()
 
-
     def set_text_opacity(self, value: float):
         self._text_alpha = int(value * 255)
         self._apply_stylesheet()
+
+    def set_font_size(self, value: int):
+        self._font_size = value
+        self._apply_stylesheet()
+
+    def set_list_item_count(self, value: int):
+        self._list_item_count = value
 
     def _apply_stylesheet(self):
         self.main_container.setStyleSheet(f"""
@@ -143,7 +152,7 @@ class Overlay(QWidget):
             }}
             QLabel {{
                 color: rgba(255, 255, 255, {self._text_alpha});
-                font-size: 14px;
+                font-size: {self._font_size}px;
                 font-family: Segoe UI;
                 font-weight: bold;
             }}
