@@ -1,20 +1,18 @@
 from pynput import keyboard
-from config.settings import KEY_ORDER, MODIFIER_NORMALIZE
+from config.settings import KEY_ORDER, MODIFIER_NORMALIZE, SPECIAL_KEY_LABELS, VK_OEM_LABELS
 
 #   Format keys from keycode to display
 def format_keys(keys):
     result = []
     for key in keys:
-        try:
-            result.append(key.name.replace("_l", "").replace("_r", "").capitalize())
-        except AttributeError:
-            if hasattr(key, 'vk'):
-                try:
-                    result.append(key.char.upper() if key.char else chr(key.vk))
-                except (AttributeError, TypeError):
-                    result.append(chr(key.vk).upper())
-            else:
-                result.append(str(key))
+        name = getattr(key, 'name', None)
+        if name is not None:
+            label = SPECIAL_KEY_LABELS.get(name) or name.replace("_l", "").replace("_r", "").replace("_", " ").title()
+            result.append(label)
+        elif hasattr(key, 'vk'):
+            result.append(VK_OEM_LABELS.get(key.vk, chr(key.vk)).upper())
+        else:
+            result.append(str(key))
         
     def sort_key(k):
         try:
@@ -27,6 +25,8 @@ def format_keys(keys):
 #   Normalize ordinary VK into keys
 def normalize_keys(key):
     if hasattr(key, 'vk'):
+        if hasattr(key, 'char') and key.char:
+            return keyboard.KeyCode(vk=key.vk, char=key.char)  # preserve char
         return keyboard.KeyCode.from_vk(key.vk)
     return key
 

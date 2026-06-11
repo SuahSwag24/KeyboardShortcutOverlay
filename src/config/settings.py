@@ -64,3 +64,52 @@ MODIFIER_NORMALIZE = {
 KEY_ORDER = [
     "Ctrl", "Alt", "Shift", "Cmd", "Tab"
 ]
+
+#   Define special keys
+SPECIAL_KEY_LABELS = {
+    # Navigation
+    "page_up":    "Page Up",
+    "page_down":  "Page Down",
+    "home":       "Home",
+    "end":        "End",
+    "insert":     "Insert",
+    "delete":     "Delete",
+
+    # Editing
+    "enter":      "Enter",
+    "backspace":  "Backspace",
+    "space":      "Space",
+    "tab":        "Tab",
+    "caps_lock":  "Caps Lock",
+    "esc":        "Esc",
+
+    # Function keys
+    "f1": "F1", "f2": "F2", "f3": "F3", "f4": "F4",
+    "f5": "F5", "f6": "F6", "f7": "F7", "f8": "F8",
+    "f9": "F9", "f10": "F10", "f11": "F11", "f12": "F12",
+
+    # Numpad
+    "num_lock":   "Num Lock",
+
+    # Arrow keys
+    "up":    "↑", "down": "↓", "left": "←", "right": "→",
+    
+    # Media / system
+    "print_screen": "Print Screen",
+    "scroll_lock":  "Scroll Lock",
+    "pause":        "Pause",
+}
+
+VK_OEM_LABELS = {
+    186: ";",   # VK_OEM_1
+    187: "=",   # VK_OEM_PLUS
+    188: ",",   # VK_OEM_COMMA
+    189: "-",   # VK_OEM_MINUS
+    190: ".",   # VK_OEM_PERIOD
+    191: "/",   # VK_OEM_2
+    192: "`",   # VK_OEM_3
+    219: "[",   # VK_OEM_4
+    220: "\\",  # VK_OEM_5
+    221: "]",   # VK_OEM_6
+    222: "'",   # VK_OEM_7
+}
