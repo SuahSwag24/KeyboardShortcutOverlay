@@ -2,7 +2,6 @@ import sys
 from PyQt6.QtWidgets import QApplication
 from components.window_changed import WindowChangeNotification
 from utils.timer_util import BackgroundTimerUtil
-from components.window_focus_listener import get_focused_window
 from components.keyboard_listener import KeySignalEmitter
 from components.overlay import Overlay
 from components.system_tray_menu import setup_system_tray
@@ -26,6 +25,8 @@ timer_manager.window_changed.connect(notif.notify)
 emitter.keys_changed.connect(overlay.update_keys)
 emitter.quit_app.connect(app.quit)
 emitter.shortcut_executed.connect(overlay.animate_execute)
+config_menu.general_tab.opacity_changed.connect(overlay.set_opacity)
+config_menu.general_tab.text_opacity_changed.connect(overlay.set_text_opacity)
 
 overlay.show()
 emitter.start()

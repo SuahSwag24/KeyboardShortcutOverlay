@@ -1,4 +1,30 @@
+import json, os
 from pynput import keyboard
+
+#   user_config.json loader
+USER_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "user_config.json")
+
+#   default configuration
+defaults = {
+    "opacity": 0.3,
+    "text_opacity": 1.0,
+    "font_size": 14,
+    "list_item_count": 10
+}
+
+def load_user_config():
+    try:
+        with open(USER_CONFIG_PATH, 'r') as f:
+            return {**defaults, **json.load(f)}
+    except (FileNotFoundError, json.JSONDecodeError):
+        return defaults
+
+def save_user_config(config):
+    try:
+        with open(USER_CONFIG_PATH, 'w') as f:
+            json.dump(config, f, indent=4)
+    except (OSError, TypeError):
+        pass
 
 #   Overlay settings specifications
 OVERLAY_HEIGHT = 300

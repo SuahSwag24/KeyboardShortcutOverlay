@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QHBoxLayout, QWidget, QLabel, QVBoxLayout
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QGuiApplication
-from config.settings import MODIFIERS, OVERLAY_ANCHOR_Y, OVERLAY_MARGIN_RIGHT, OVERLAY_WIDTH, SHORTCUT_ROW_HEIGHT, TITLE_HEIGHT
+from config.settings import MODIFIERS, OVERLAY_ANCHOR_Y, OVERLAY_MARGIN_RIGHT, OVERLAY_WIDTH, SHORTCUT_ROW_HEIGHT, TITLE_HEIGHT, load_user_config
 import utils.shortcut_loader_utils as shortcut_loader
 from animations.flash_shortcut_animation import FlashShortcutAnimation
 from utils.key_utils import normalize_modifiers
@@ -9,6 +9,10 @@ from utils.key_utils import normalize_modifiers
 class Overlay(QWidget):
     def __init__(self):
         super().__init__()
+
+        config = load_user_config()
+        self._bg_alpha = int(config.get("opacity", 0.3) * 255)
+        self._text_alpha = int(config.get("text_opacity", 1.0) * 255)
 
         #   Overlay states
         self.animation_manager = FlashShortcutAnimation(self)
@@ -23,17 +27,17 @@ class Overlay(QWidget):
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.main_container = QWidget(self)
-        self.main_container.setStyleSheet("""
-            QWidget {
-                background-color: rgba(30, 30, 30, 180);
+        self.main_container.setStyleSheet(f"""
+            QWidget {{
+                background-color: rgba(30, 30, 30, {self._bg_alpha});
                 border-radius: 12px;
-            }
-            QLabel {
-                color: #ffffff;
+            }}
+            QLabel {{
+                color: rgba(255, 255, 255, {self._text_alpha});
                 font-size: 14px;
                 font-family: Segoe UI;
                 font-weight: bold;   
-            }
+            }}
         """)
 
         base_layout = QVBoxLayout(self)
@@ -121,4 +125,26 @@ class Overlay(QWidget):
 
     def animate_execute(self, combo, description):
         self.animation_manager.flash_shortcut(combo, description)
-        
+
+    def set_opacity(self, value: float):
+        self._bg_alpha = int(value * 255)
+        self._apply_stylesheet()
+
+
+    def set_text_opacity(self, value: float):
+        self._text_alpha = int(value * 255)
+        self._apply_stylesheet()
+
+    def _apply_stylesheet(self):
+        self.main_container.setStyleSheet(f"""
+            QWidget {{
+                background-color: rgba(30, 30, 30, {self._bg_alpha});
+                border-radius: 12px;
+            }}
+            QLabel {{
+                color: rgba(255, 255, 255, {self._text_alpha});
+                font-size: 14px;
+                font-family: Segoe UI;
+                font-weight: bold;
+            }}
+        """)
