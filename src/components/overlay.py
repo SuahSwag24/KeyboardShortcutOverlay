@@ -36,7 +36,7 @@ class Overlay(QWidget):
             }}
             QLabel {{
                 color: rgba(255, 255, 255, {self._text_alpha});
-                font-size: 14px;
+                font-size: {self._font_size}px;
                 font-family: Segoe UI;
                 font-weight: bold;   
             }}
