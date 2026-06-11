@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout
 from PyQt6.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QGuiApplication
 from utils.shortcut_loader_utils import get_shortcut_path, load_context_shortcuts, reset_to_global
-from config.settings import OVERLAY_WIDTH, OVERLAY_MARGIN_RIGHT
+from config.settings import OVERLAY_MARGIN_RIGHT
 
 NOTIF_HEIGHT = 52
 NOTIF_ANCHOR_Y = 10  # distance from top of screen
