@@ -9,7 +9,10 @@ defaults = {
     "opacity": 0.3,
     "text_opacity": 1.0,
     "font_size": 14,
-    "list_item_count": 10
+    "list_item_count": 10,
+    "overlay_x_offset": 40,
+    "overlay_y_offset": 50,
+    "overlay_width": 400,
 }
 
 def load_user_config():
@@ -28,9 +31,6 @@ def save_user_config(config):
 
 #   Overlay settings specifications
 OVERLAY_HEIGHT = 300
-OVERLAY_WIDTH = 400
-OVERLAY_MARGIN_RIGHT = 40
-OVERLAY_ANCHOR_Y = 50
 SHORTCUT_ROW_HEIGHT = 30
 TITLE_HEIGHT = 40
 

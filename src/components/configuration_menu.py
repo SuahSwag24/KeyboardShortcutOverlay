@@ -1,15 +1,23 @@
 from PyQt6.QtWidgets import QHBoxLayout, QLabel, QSlider, QVBoxLayout, QWidget, QTabWidget
 from PyQt6.QtCore import Qt, pyqtSignal
 from config.settings import load_user_config, save_user_config
+from PyQt6.QtGui import QGuiApplication
 
 class GeneralConfigurations(QWidget):
     opacity_changed = pyqtSignal(float)
     text_opacity_changed = pyqtSignal(float)
     font_size_changed = pyqtSignal(int)
     list_item_count_changed = pyqtSignal(int)
+    overlay_x_offset_changed = pyqtSignal(int)
+    overlay_y_offset_changed = pyqtSignal(int)
+    overlay_width_changed = pyqtSignal(int)
 
     def __init__(self):
         super().__init__()
+
+        screen = QGuiApplication.primaryScreen().geometry()
+        screen_w = screen.width()
+        screen_h = screen.height()
 
         config = load_user_config()
 
@@ -63,6 +71,42 @@ class GeneralConfigurations(QWidget):
             self._on_list_item_count_change,
             "list_item_count_slider",
             "list_item_count_value_label"    
+        ))
+
+        #   Overlay Width
+        layout.addLayout(self._build_slider_option(
+            "Overlay Width:",
+            200,
+            700,
+            config.get("overlay_width", 400),
+            "px",
+            self._on_overlay_width_change,
+            "overlay_width_slider",
+            "overlay_width_value_label"
+        ))
+
+        #   Overlay X Offset
+        layout.addLayout(self._build_slider_option(
+            "Overlay X Offset:",
+            0,
+            screen_w,
+            config.get("overlay_x_offset", 40),
+            "px",
+            self._on_overlay_x_offset_change,
+            "overlay_x_offset_slider",
+            "overlay_x_offset_value_label"
+        ))
+
+        #   Overlay Y Offset
+        layout.addLayout(self._build_slider_option(
+            "Overlay Y Offset:",
+            0,
+            screen_h,
+            config.get("overlay_y_offset", 50),
+            "px",
+            self._on_overlay_y_offset_change,
+            "overlay_y_offset_slider",
+            "overlay_y_offset_value_label"
         ))
 
     def _build_slider_option(self, label_text, min_val, max_val, initial_val, unit, callback, slider_attr, value_label_attr):
@@ -128,6 +172,27 @@ class GeneralConfigurations(QWidget):
 
         self.list_item_count_changed.emit(list_item_count)
 
+    def _on_overlay_width_change(self, value):
+        self.overlay_width_value_label.setText(f"{value}px")
+        config = load_user_config()
+        config["overlay_width"] = value
+        save_user_config(config)
+        self.overlay_width_changed.emit(value)
+
+    def _on_overlay_x_offset_change(self, value):
+        self.overlay_x_offset_value_label.setText(f"{value}px")
+        config = load_user_config()
+        config["overlay_x_offset"] = value
+        save_user_config(config)
+        self.overlay_x_offset_changed.emit(value)
+
+    def _on_overlay_y_offset_change(self, value):
+        self.overlay_y_offset_value_label.setText(f"{value}px")
+        config = load_user_config()
+        config["overlay_y_offset"] = value
+        save_user_config(config)
+        self.overlay_y_offset_changed.emit(value)
+        
 
 class ConfigurationWindow(QWidget):
     def __init__(self):

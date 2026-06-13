@@ -1,8 +1,8 @@
 from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout
 from PyQt6.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QGuiApplication
+from config.settings import load_user_config
 from utils.shortcut_loader_utils import get_shortcut_path, load_context_shortcuts, reset_to_global
-from config.settings import OVERLAY_MARGIN_RIGHT
 
 NOTIF_HEIGHT = 52
 NOTIF_ANCHOR_Y = 10  # distance from top of screen
@@ -55,8 +55,11 @@ class WindowChangeNotification(QWidget):
         self._fade_out_anim.finished.connect(self.hide)
 
     def _position(self):
+        config = load_user_config()
+        self._overlay_x_offset = config.get("overlay_x_offset", 40)
+        
         screen = QGuiApplication.primaryScreen().geometry()
-        x = screen.width() - self.width() - OVERLAY_MARGIN_RIGHT
+        x = screen.width() - self.width() - self._overlay_x_offset
         self.move(x, NOTIF_ANCHOR_Y)
 
     def notify(self, window_title, executable, display_ms=1000):

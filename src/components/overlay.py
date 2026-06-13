@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QHBoxLayout, QWidget, QLabel, QVBoxLayout
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QGuiApplication
-from config.settings import MODIFIERS, OVERLAY_ANCHOR_Y, OVERLAY_MARGIN_RIGHT, OVERLAY_WIDTH, SHORTCUT_ROW_HEIGHT, TITLE_HEIGHT, load_user_config
+from PyQt6.QtGui import QFontMetrics, QGuiApplication
+from config.settings import MODIFIERS, SHORTCUT_ROW_HEIGHT, TITLE_HEIGHT, load_user_config
 import utils.shortcut_loader_utils as shortcut_loader
 from animations.flash_shortcut_animation import FlashShortcutAnimation
 from utils.key_utils import normalize_modifiers
@@ -15,6 +15,9 @@ class Overlay(QWidget):
         self._text_alpha = int(config.get("text_opacity", 1.0) * 255)
         self._font_size = config.get("font_size", 14)
         self._list_item_count = config.get("list_item_count", 10)
+        self._overlay_width = config.get("overlay_width", 400)
+        self._overlay_x_offset = config.get("overlay_x_offset", 40)
+        self._overlay_y_offset = config.get("overlay_y_offset", 50)
 
         #   Overlay states
         self.animation_manager = FlashShortcutAnimation(self)
@@ -62,12 +65,12 @@ class Overlay(QWidget):
         self.shortcut_layout.setContentsMargins(0, 0, 0, 0)
         self.container_layout.addLayout(self.shortcut_layout)
 
-        self.setFixedWidth(OVERLAY_WIDTH)
+        self.setFixedWidth(self._overlay_width)
 
     def position_window(self):
         screen_geometry = QGuiApplication.primaryScreen().geometry()
-        x = screen_geometry.width() - self.width() - OVERLAY_MARGIN_RIGHT
-        y = OVERLAY_ANCHOR_Y
+        x = screen_geometry.width() - self.width() - self._overlay_x_offset
+        y = self._overlay_y_offset
         self.move(x, y)
 
     def showEvent(self, event):
@@ -100,8 +103,11 @@ class Overlay(QWidget):
             row_layout = QHBoxLayout(row_widget)
             row_layout.setContentsMargins(16, 0, 16, 0)
 
-            label = QLabel(f"{combo} -> {description}")
-            label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+            full_text = f"{combo} -> {description}"
+            fm = QFontMetrics(self.font())
+            available_width = self._overlay_width - 32
+            elided = fm.elidedText(full_text, Qt.TextElideMode.ElideRight, available_width)
+            label = QLabel(elided)
 
             row_widget.setProperty("combo", combo)
             row_widget.setProperty("label_widget", label)
@@ -143,6 +149,19 @@ class Overlay(QWidget):
 
     def set_list_item_count(self, value: int):
         self._list_item_count = value
+
+    def set_overlay_width(self, value: int):
+        self._overlay_width = value
+        self.setFixedWidth(value)
+        self.position_window()
+
+    def set_overlay_x_offset(self, value: int):
+        self._overlay_x_offset = value
+        self.position_window()
+
+    def set_overlay_y_offset(self, value: int):
+        self._overlay_y_offset = value
+        self.position_window()      
 
     def _apply_stylesheet(self):
         self.main_container.setStyleSheet(f"""
