@@ -103,11 +103,8 @@ class Overlay(QWidget):
             row_layout = QHBoxLayout(row_widget)
             row_layout.setContentsMargins(16, 0, 16, 0)
 
-            full_text = f"{combo} -> {description}"
-            fm = QFontMetrics(self.font())
-            available_width = self._overlay_width - 32
-            elided = fm.elidedText(full_text, Qt.TextElideMode.ElideRight, available_width)
-            label = QLabel(elided)
+            label = QLabel(f"{combo} -> {description}")
+            label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
 
             row_widget.setProperty("combo", combo)
             row_widget.setProperty("label_widget", label)
