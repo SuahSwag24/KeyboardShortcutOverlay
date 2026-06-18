@@ -25,6 +25,7 @@ class KeySignalEmitter(QObject):
         normalized = normalize_keys(key)
         if normalized not in self.keys_pressed:
             self.keys_pressed.add(normalized)
+            print(self.keys_pressed)
             self.keys_changed.emit(self.keys_pressed)
             self.check_shortcuts_executed()
 
@@ -41,4 +42,7 @@ class KeySignalEmitter(QObject):
         
         if description:
             self.shortcut_executed.emit(current_combo, description)
+
+    def reset_keys_pressed(self):
+        self.keys_pressed.clear()
             

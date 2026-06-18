@@ -14,7 +14,7 @@ overlay = Overlay()
 emitter = KeySignalEmitter()
 config_menu = ConfigurationWindow()
 
-tray_icon = setup_system_tray(app, config_menu)
+tray_icon = setup_system_tray(app, config_menu, emitter)
 
 timer_manager = BackgroundTimerUtil(1000)
 timer_manager.start_all()
