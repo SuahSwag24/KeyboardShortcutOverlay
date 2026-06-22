@@ -22,15 +22,18 @@ class KeySignalEmitter(QObject):
         self.listener.start()
 
     def on_press(self, key):
-        normalized = normalize_keys(key)
-        if normalized not in self.keys_pressed:
-            self.keys_pressed.add(normalized)
-            print(self.keys_pressed)
+        canonical = self.listener.canonical(key)
+        print(canonical)
+        if canonical not in self.keys_pressed:
+            self.keys_pressed.add(canonical)
             self.keys_changed.emit(self.keys_pressed)
             self.check_shortcuts_executed()
 
-    def on_release(self, key):        
-        self.keys_pressed.discard(normalize_keys(key))
+    def on_release(self, key):
+        if key == keyboard.Key.esc:
+            self.quit_app.emit()
+            return False
+        self.keys_pressed.discard(self.listener.canonical(key))
         self.keys_changed.emit(self.keys_pressed)
 
     def check_shortcuts_executed(self):

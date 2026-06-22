@@ -34,30 +34,18 @@ OVERLAY_HEIGHT = 300
 SHORTCUT_ROW_HEIGHT = 30
 TITLE_HEIGHT = 40
 
-#   Defining modifier keys in keycode
 MODIFIERS = {
-    keyboard.Key.ctrl_l, keyboard.Key.ctrl_r,
-    keyboard.Key.alt_l, keyboard.Key.alt_r,
-    keyboard.Key.shift_l, keyboard.Key.shift_r, keyboard.Key.shift,
+    keyboard.Key.ctrl,
+    keyboard.Key.alt,
+    keyboard.Key.shift,
     keyboard.Key.cmd
 }
 
-#   Mapping string representations to keycode for modifiers
 MODIFIER_MAP = {
-    "ctrl":  keyboard.Key.ctrl_l,
-    "alt":   keyboard.Key.alt_l,
-    "shift": keyboard.Key.shift_l,
+    "ctrl":  keyboard.Key.ctrl,
+    "alt":   keyboard.Key.alt,
+    "shift": keyboard.Key.shift,
     "cmd":   keyboard.Key.cmd
-}
-
-#   Normalize left and right modifiers to represent the same key for easier matching
-MODIFIER_NORMALIZE = {
-    keyboard.Key.ctrl_r: keyboard.Key.ctrl_l,
-    keyboard.Key.alt_r: keyboard.Key.alt_l,
-    keyboard.Key.shift_r : keyboard.Key.shift_l,
-    keyboard.Key.shift : keyboard.Key.shift_l,
-    keyboard.Key.cmd_l : keyboard.Key.cmd,
-    keyboard.Key.cmd_r : keyboard.Key.cmd
 }
 
 #   Define order for displaying shortcuts in the overlay
@@ -101,15 +89,31 @@ SPECIAL_KEY_LABELS = {
 }
 
 VK_OEM_LABELS = {
-    186: ";",   # VK_OEM_1
-    187: "=",   # VK_OEM_PLUS
-    188: ",",   # VK_OEM_COMMA
-    189: "-",   # VK_OEM_MINUS
-    190: ".",   # VK_OEM_PERIOD
-    191: "/",   # VK_OEM_2
-    192: "`",   # VK_OEM_3
-    219: "[",   # VK_OEM_4
-    220: "\\",  # VK_OEM_5
-    221: "]",   # VK_OEM_6
-    222: "'",   # VK_OEM_7
+    # Function keys
+    112: "F1",  113: "F2",  114: "F3",  115: "F4",
+    116: "F5",  117: "F6",  118: "F7",  119: "F8",
+    120: "F9",  121: "F10", 122: "F11", 123: "F12",
+
+    # Navigation
+    33: "Page Up", 34: "Page Down",
+    35: "End",     36: "Home",
+    45: "Insert",  46: "Delete",
+    37: "←",       38: "↑",
+    39: "→",       40: "↓",
+
+    # Editing
+    13: "Enter", 8: "Backspace", 27: "Esc",
+    32: "Space", 9: "Tab",
+
+    # Numpad
+    96: "Num 0", 97: "Num 1", 98: "Num 2", 99: "Num 3",
+    100: "Num 4", 101: "Num 5", 102: "Num 6", 103: "Num 7",
+    104: "Num 8", 105: "Num 9",
+    106: "Num *", 107: "Num +", 109: "Num -",
+    110: "Num .", 111: "Num /",
+
+    # OEM punctuation
+    186: ";",   187: "=",  188: ",",  189: "-",
+    190: ".",   191: "/",  192: "`",  219: "[",
+    220: "\\",  221: "]",  222: "'",
 }
