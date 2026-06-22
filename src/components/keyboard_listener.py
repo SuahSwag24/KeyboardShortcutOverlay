@@ -13,23 +13,41 @@ class KeySignalEmitter(QObject):
     def __init__(self):
         super().__init__()
         self.keys_pressed = set()
+        self.listener = None
     
     def start(self):
+        if self.listener:
+            return
+
         self.listener = keyboard.Listener(
             on_press=self.on_press,
             on_release=self.on_release
         )
         self.listener.start()
 
+    def stop(self):
+        if not self.listener:
+            return
+
+        listener = self.listener
+        self.listener = None
+        listener.stop()
+        self.reset_keys_pressed()
+
     def on_press(self, key):
+        if not self.listener:
+            return False
+
         canonical = self.listener.canonical(key)
-        print(canonical)
         if canonical not in self.keys_pressed:
             self.keys_pressed.add(canonical)
             self.keys_changed.emit(self.keys_pressed)
             self.check_shortcuts_executed()
 
     def on_release(self, key):
+        if not self.listener:
+            return False
+
         if key == keyboard.Key.esc:
             self.quit_app.emit()
             return False
@@ -48,4 +66,5 @@ class KeySignalEmitter(QObject):
 
     def reset_keys_pressed(self):
         self.keys_pressed.clear()
+        self.keys_changed.emit(self.keys_pressed)
             

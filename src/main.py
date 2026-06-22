@@ -12,7 +12,7 @@ app.setQuitOnLastWindowClosed(False)
 
 overlay = Overlay()
 emitter = KeySignalEmitter()
-config_menu = ConfigurationWindow()
+config_menu = ConfigurationWindow(emitter)
 
 tray_icon = setup_system_tray(app, config_menu, emitter)
 

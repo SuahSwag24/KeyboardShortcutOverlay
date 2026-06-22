@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QHBoxLayout, QLabel, QSlider, QVBoxLayout, QWidget, QTabWidget
 from PyQt6.QtCore import Qt, pyqtSignal
+from components.shortcut_key_config_menu import AppMappingPanel, PresetListPanel, ShortcutEditorPanel
 from config.settings import load_user_config, save_user_config
 from PyQt6.QtGui import QGuiApplication
 
@@ -195,19 +196,39 @@ class GeneralConfigurations(QWidget):
         
 
 class ConfigurationWindow(QWidget):
-    def __init__(self):
+    def __init__(self, emitter):
         super().__init__()
 
-        self.setWindowTitle("Test")
-        self.resize(400, self.minimumHeight())
+        tabs = QTabWidget()
+        self.general_tab = GeneralConfigurations()
+        self.shortcut_tab = ShortcutKeyConfigurationMenu(emitter)
+
+        tabs.addTab(self.general_tab, "General")
+        tabs.addTab(self.shortcut_tab, "Shortcut Presets")
 
         layout = QVBoxLayout()
-        
-        self.general_tab = GeneralConfigurations()
-        layout.addWidget(self.general_tab)
+        layout.addWidget(tabs)
         self.setLayout(layout)
 
     def show_window(self):
         self.show()
         self.raise_()
         self.activateWindow()
+
+class ShortcutKeyConfigurationMenu(QWidget):
+    def __init__(self, emitter):
+        super().__init__()
+        
+        layout = QHBoxLayout(self)
+
+        self.app_panel = AppMappingPanel()
+        self.editor_panel = ShortcutEditorPanel(emitter)
+        self.preset_panel = PresetListPanel(on_select = self._on_preset_selected)
+
+        layout.addWidget(self.preset_panel, 1)
+        layout.addWidget(self.editor_panel, 2)
+        layout.addWidget(self.app_panel,    1)
+        
+    def _on_preset_selected(self, path):
+        self.editor_panel.load_preset(path)
+        self.app_panel.load_preset(path)
