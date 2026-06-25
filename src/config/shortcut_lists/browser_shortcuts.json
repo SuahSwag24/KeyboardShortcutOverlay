@@ -23,5 +23,10 @@
     "modifier": "ctrl",
     "combo": "Ctrl + L",
     "description": "Jump to Searchbar"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + H",
+    "description": "History"
   }
 ]

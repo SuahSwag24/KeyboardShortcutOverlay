@@ -1,6 +1,8 @@
 from PyQt6.QtWidgets import QHBoxLayout, QLabel, QSlider, QVBoxLayout, QWidget, QTabWidget
 from PyQt6.QtCore import Qt, pyqtSignal
-from components.shortcut_key_config_menu import AppMappingPanel, PresetListPanel, ShortcutEditorPanel
+from components.app_mapping import AppMappingPanel
+from components.preset_list import PresetListPanel
+from components.shortcut_editor_panel import ShortcutEditorPanel
 from config.settings import load_user_config, save_user_config
 from PyQt6.QtGui import QGuiApplication
 

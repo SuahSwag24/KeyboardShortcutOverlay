@@ -1,27 +1,107 @@
 [
-  {"modifier": "ctrl", "combo": "Ctrl + C", "description": "Copy"},
-  {"modifier": "ctrl", "combo": "Ctrl + V", "description": "Paste"},
-  {"modifier": "ctrl", "combo": "Ctrl + Z", "description": "Undo"},
-  {"modifier": "ctrl", "combo": "Ctrl + X", "description": "Cut"},
-  {"modifier": "ctrl", "combo": "Ctrl + A", "description": "Select All"},
-  {"modifier": "ctrl", "combo": "Ctrl + Y", "description": "Redo"},
-
-  {"modifier": "alt", "combo": "Alt + F4", "description": "Close Window"},
-  {"modifier": "alt", "combo": "Alt + Tab", "description": "Switch Window"},
-  {"modifier": "alt", "combo": "Alt + Enter", "description": "Open Properties"},
-  {"modifier": "alt", "combo": "Alt + Space", "description": "Open Window Menu"},
-  {"modifier": "alt", "combo": "Alt + Left Arrow", "description": "Back"},
-  {"modifier": "alt", "combo": "Alt + Right Arrow", "description": "Forward"},
-  
-  {"modifier": "alt+shift", "combo": "Alt + Shift + Tab", "description": "Switch Previous Window"},
-  {"modifier": "alt+shift", "combo": "Alt + Shift", "description": "Switch Input Language"},
-
-  {"modifier": "ctrl+alt", "combo": "Ctrl + Alt + Del", "description": "System Security Screen"},
-  {"modifier": "ctrl+alt", "combo": "Ctrl + Alt + Tab", "description": "Persistent Task Switcher"},
-
-  {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + Esc", "description": "Open Task Manager"},
-  {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + Z", "description": "Redo"},
-
-  {"modifier": "cmd", "combo": "Cmd + Tab", "description": "Open Task View"},
-  {"modifier": "cmd", "combo": "Cmd + D", "description": "Show Desktop"}
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + C",
+    "description": "Copy"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + V",
+    "description": "Paste"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + Z",
+    "description": "Undo"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + X",
+    "description": "Cut"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + A",
+    "description": "Select All"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + Y",
+    "description": "Redo"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + F4",
+    "description": "Close Window"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + Tab",
+    "description": "Switch Window"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + Enter",
+    "description": "Open Properties"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + Space",
+    "description": "Open Window Menu"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + Left Arrow",
+    "description": "Back"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + Right Arrow",
+    "description": "Forward"
+  },
+  {
+    "modifier": "alt+shift",
+    "combo": "Alt + Shift + Tab",
+    "description": "Switch Previous Window"
+  },
+  {
+    "modifier": "alt+shift",
+    "combo": "Alt + Shift",
+    "description": "Switch Input Language"
+  },
+  {
+    "modifier": "ctrl+alt",
+    "combo": "Ctrl + Alt + Del",
+    "description": "System Security Screen"
+  },
+  {
+    "modifier": "ctrl+alt",
+    "combo": "Ctrl + Alt + Tab",
+    "description": "Persistent Task Switcher"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + Esc",
+    "description": "Open Task Manager"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + Z",
+    "description": "Redo"
+  },
+  {
+    "modifier": "cmd",
+    "combo": "Cmd + Tab",
+    "description": "Open Task View"
+  },
+  {
+    "modifier": "cmd",
+    "combo": "Cmd + D",
+    "description": "Show Desktop"
+  },
+  {
+    "modifier": "cmd",
+    "combo": "Cmd + P",
+    "description": "Project"
+  }
 ]

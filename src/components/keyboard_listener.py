@@ -47,10 +47,7 @@ class KeySignalEmitter(QObject):
     def on_release(self, key):
         if not self.listener:
             return False
-
-        if key == keyboard.Key.esc:
-            self.quit_app.emit()
-            return False
+        
         self.keys_pressed.discard(self.listener.canonical(key))
         self.keys_changed.emit(self.keys_pressed)
 
