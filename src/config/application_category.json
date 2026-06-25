@@ -1,0 +1,18 @@
+{
+    "chrome.exe": {
+        "application_name": "Google Chrome",
+        "category": "browser",
+        "shortcut_file": "KeyboardShortcutOverlay/src/config/shortcut_lists/browser_shortcuts.json"
+    },
+    "opera.exe": {
+        "application_name": "Opera Browser",
+        "category": "browser",
+        "shortcut_file": "KeyboardShortcutOverlay/src/config/shortcut_lists/browser_shortcuts.json"
+    },
+
+    "Code.exe": {
+        "application_name": "Visual Studio Code",
+        "category": "development",
+        "shortcut_file": "KeyboardShortcutOverlay/src/config/shortcut_lists/vscode_shortcuts.json"
+    }
+}

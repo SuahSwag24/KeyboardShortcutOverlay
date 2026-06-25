@@ -1,0 +1,32 @@
+[
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + W",
+    "description": "Close Tab"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + T",
+    "description": "New Tab"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + N",
+    "description": "New Window"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + N",
+    "description": "New Incognito Window"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + L",
+    "description": "Jump to Searchbar"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + H",
+    "description": "History"
+  }
+]
