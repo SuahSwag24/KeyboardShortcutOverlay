@@ -1,8 +1,8 @@
 import json, os
 from pynput import keyboard
 
-#   user_config.json loader
-USER_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "user_config.json")
+from utils.path_util import get_config_dir
+USER_CONFIG_PATH = os.path.join(get_config_dir(), "user_config.json")
 
 #   default configuration
 defaults = {

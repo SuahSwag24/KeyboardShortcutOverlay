@@ -1,16 +1,19 @@
 import json
+import os
 
 from config.settings import MODIFIER_MAP
+from utils.path_util import get_config_dir, resolve_shortcut_path
 
-GLOBAL_PATH = "KeyboardShortcutOverlay/src/config/shortcut_lists/global.json"
-CATEGORY_PATH = "KeyboardShortcutOverlay/src/config/application_category.json"
+GLOBAL_PATH = os.path.join(get_config_dir(), "shortcut_lists", "global.json")
+CATEGORY_PATH = os.path.join(get_config_dir(), "application_category.json")
 
 with open(CATEGORY_PATH) as f:
     _APP_MAP: dict = json.load(f)
 
 
 def load_shortcuts(path):
-    with open(path, "r") as f:
+    resolved_path = resolve_shortcut_path(path)
+    with open(resolved_path, "r") as f:
         raw = json.load(f)
 
     flat = {}
@@ -41,7 +44,8 @@ SHORTCUTS = build_grouped_shortcuts(_global_grouped)
 def load_context_shortcuts(context_path):
     global SHORTCUTS_FLAT, SHORTCUTS
 
-    context_flat, context_grouped = load_shortcuts(context_path)
+    resolved_path = resolve_shortcut_path(context_path)
+    context_flat, context_grouped = load_shortcuts(resolved_path)
     merged_flat = {**_global_flat, **context_flat}
 
     merged_grouped = {}
@@ -64,6 +68,6 @@ def reset_to_global():
 def get_shortcut_path(executable):
     app = _APP_MAP.get(executable)
     if app:
-        return app["shortcut_file"]
+        return resolve_shortcut_path(app["shortcut_file"])
     else:
         return None
