@@ -50,12 +50,14 @@ def load_context_shortcuts(context_path):
 
     merged_grouped = {}
     for mod, actions in _global_grouped.items():
-        merged_grouped[mod] = list(actions)
+        merged_grouped[mod] = dict(actions)
     for mod, actions in context_grouped.items():
-        if mod in merged_grouped:
-            merged_grouped[mod].extend(actions)
-        else:
-            merged_grouped[mod] = list(actions)
+        if mod not in merged_grouped:
+            merged_grouped[mod] = {}
+        merged_grouped[mod].update(dict(actions))
+
+    for mod in merged_grouped:
+        merged_grouped[mod] = list(merged_grouped[mod].items())
 
     SHORTCUTS_FLAT = merged_flat
     SHORTCUTS = build_grouped_shortcuts(merged_grouped)
