@@ -198,12 +198,12 @@ class GeneralConfigurations(QWidget):
         
 
 class ConfigurationWindow(QWidget):
-    def __init__(self, emitter):
+    def __init__(self, emitter, on_shortcuts_changed=None):
         super().__init__()
 
         tabs = QTabWidget()
         self.general_tab = GeneralConfigurations()
-        self.shortcut_tab = ShortcutKeyConfigurationMenu(emitter)
+        self.shortcut_tab = ShortcutKeyConfigurationMenu(emitter, on_shortcuts_changed)
 
         tabs.addTab(self.general_tab, "General")
         tabs.addTab(self.shortcut_tab, "Shortcut Presets")
@@ -218,13 +218,13 @@ class ConfigurationWindow(QWidget):
         self.activateWindow()
 
 class ShortcutKeyConfigurationMenu(QWidget):
-    def __init__(self, emitter):
+    def __init__(self, emitter, on_shortcuts_changed=None):
         super().__init__()
         
         layout = QHBoxLayout(self)
 
         self.app_panel = AppMappingPanel()
-        self.editor_panel = ShortcutEditorPanel(emitter)
+        self.editor_panel = ShortcutEditorPanel(emitter, on_shortcuts_changed=on_shortcuts_changed)
         self.preset_panel = PresetListPanel(on_select = self._on_preset_selected)
 
         layout.addWidget(self.preset_panel, 1)

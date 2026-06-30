@@ -12,7 +12,7 @@ app.setQuitOnLastWindowClosed(False)
 
 overlay = Overlay()
 emitter = KeySignalEmitter()
-config_menu = ConfigurationWindow(emitter)
+config_menu = ConfigurationWindow(emitter, on_shortcuts_changed=overlay.reload_shortcuts)
 
 tray_icon = setup_system_tray(app, config_menu, emitter)
 
@@ -25,6 +25,7 @@ timer_manager.window_changed.connect(notif.notify)
 emitter.keys_changed.connect(overlay.update_keys)
 emitter.quit_app.connect(app.quit)
 emitter.shortcut_executed.connect(overlay.animate_execute)
+
 config_menu.general_tab.opacity_changed.connect(overlay.set_opacity)
 config_menu.general_tab.text_opacity_changed.connect(overlay.set_text_opacity)
 config_menu.general_tab.font_size_changed.connect(overlay.set_font_size)
