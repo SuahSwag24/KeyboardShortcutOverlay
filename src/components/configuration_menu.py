@@ -3,7 +3,7 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from components.app_mapping import AppMappingPanel
 from components.preset_list import PresetListPanel
 from components.shortcut_editor_panel import ShortcutEditorPanel
-from config.settings import load_user_config, save_user_config
+from config.settings import load_user_config, save_user_config, get_app_info
 from PyQt6.QtGui import QGuiApplication
 
 class GeneralConfigurations(QWidget):
@@ -201,6 +201,9 @@ class ConfigurationWindow(QWidget):
     def __init__(self, emitter, on_shortcuts_changed=None):
         super().__init__()
 
+        app_info = get_app_info()
+        print(app_info)
+
         tabs = QTabWidget()
         self.general_tab = GeneralConfigurations()
         self.shortcut_tab = ShortcutKeyConfigurationMenu(emitter, on_shortcuts_changed)
@@ -211,6 +214,10 @@ class ConfigurationWindow(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(tabs)
         self.setLayout(layout)
+
+        layout.addWidget(
+            QLabel(f"Build Number: {app_info["version_number"]}")
+        )
 
     def show_window(self):
         self.show()

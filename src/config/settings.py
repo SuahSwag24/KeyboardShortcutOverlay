@@ -117,3 +117,10 @@ VK_OEM_LABELS = {
     190: ".",   191: "/",  192: "`",  219: "[",
     220: "\\",  221: "]",  222: "'",
 }
+
+APP_INFO = {
+    "version_number": "1.2"
+}
+
+def get_app_info():
+    return APP_INFO
