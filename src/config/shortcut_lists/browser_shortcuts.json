@@ -28,5 +28,10 @@
     "modifier": "ctrl",
     "combo": "Ctrl + H",
     "description": "History"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + J",
+    "description": "Downloads"
   }
 ]

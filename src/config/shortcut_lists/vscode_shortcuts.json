@@ -1,15 +1,72 @@
 [
-  {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + P", "description": "Command Palette"},
-  {"modifier": "ctrl", "combo": "Ctrl + P", "description": "Go to File..."},
-  {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + N", "description": "New Window"},
-  {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + W", "description": "Close Window"},
-  {"modifier": "ctrl", "combo": "Ctrl + ,", "description": "User Settings"},
-
-  {"modifier": "ctrl", "combo": "Ctrl + N", "description": "New File"},
-  {"modifier": "ctrl", "combo": "Ctrl + O", "description": "Open File"},
-  {"modifier": "ctrl", "combo": "Ctrl + S", "description": "Save File"},
-  {"modifier": "ctrl+shift", "combo": "Ctrl + Shift + S", "description": "Save As..."},
-  {"modifier": "ctrl", "combo": "Ctrl + F4", "description": "Close"},
-  {"modifier": "ctrl", "combo": "Ctrl + Tab", "description": "Open Next"},
-  {"modifier": "ctrl+shift", "combo": "Ctrl + Shift", "description": "Open Previous"}
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + P",
+    "description": "Command Palette"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + P",
+    "description": "Go to File..."
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + N",
+    "description": "New Window"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + W",
+    "description": "Close Window"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + ,",
+    "description": "User Settings"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + N",
+    "description": "New File"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + O",
+    "description": "Open File"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + S",
+    "description": "Save File"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + S",
+    "description": "Save As..."
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + F4",
+    "description": "Close"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + Tab",
+    "description": "Open Next"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift",
+    "description": "Open Previous"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + J",
+    "description": "Open/Close Bottom Bar"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + S",
+    "description": "Save"
+  }
 ]

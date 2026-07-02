@@ -28,6 +28,7 @@ class AppMappingPanel(QWidget):
     def load_preset(self, preset_path):
         self._current_preset_path = preset_path
         self._refresh()
+        self._update_lock_state()
 
     def _refresh(self):
         self.list_widget.clear()
@@ -80,3 +81,13 @@ class AppMappingPanel(QWidget):
         cat_data.pop(exe, None)
         _save_category(cat_data)
         self._refresh()
+
+    def _update_lock_state(self):
+        is_global = (
+            self._current_preset_path
+            and os.path.basename(self._current_preset_path).lower() == "global.json"
+        )
+        self.setEnabled(not is_global)
+        self.setStyleSheet(
+            "QWidget { color: #888888; }" if is_global else ""
+        )

@@ -3,7 +3,7 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from components.app_mapping import AppMappingPanel
 from components.preset_list import PresetListPanel
 from components.shortcut_editor_panel import ShortcutEditorPanel
-from config.settings import load_user_config, save_user_config
+from config.settings import load_user_config, save_user_config, get_app_info
 from PyQt6.QtGui import QGuiApplication
 
 class GeneralConfigurations(QWidget):
@@ -198,12 +198,15 @@ class GeneralConfigurations(QWidget):
         
 
 class ConfigurationWindow(QWidget):
-    def __init__(self, emitter):
+    def __init__(self, emitter, on_shortcuts_changed=None):
         super().__init__()
+
+        app_info = get_app_info()
+        print(app_info)
 
         tabs = QTabWidget()
         self.general_tab = GeneralConfigurations()
-        self.shortcut_tab = ShortcutKeyConfigurationMenu(emitter)
+        self.shortcut_tab = ShortcutKeyConfigurationMenu(emitter, on_shortcuts_changed)
 
         tabs.addTab(self.general_tab, "General")
         tabs.addTab(self.shortcut_tab, "Shortcut Presets")
@@ -212,19 +215,23 @@ class ConfigurationWindow(QWidget):
         layout.addWidget(tabs)
         self.setLayout(layout)
 
+        layout.addWidget(
+            QLabel(f"Build Number: {app_info["version_number"]}")
+        )
+
     def show_window(self):
         self.show()
         self.raise_()
         self.activateWindow()
 
 class ShortcutKeyConfigurationMenu(QWidget):
-    def __init__(self, emitter):
+    def __init__(self, emitter, on_shortcuts_changed=None):
         super().__init__()
         
         layout = QHBoxLayout(self)
 
         self.app_panel = AppMappingPanel()
-        self.editor_panel = ShortcutEditorPanel(emitter)
+        self.editor_panel = ShortcutEditorPanel(emitter, on_shortcuts_changed=on_shortcuts_changed)
         self.preset_panel = PresetListPanel(on_select = self._on_preset_selected)
 
         layout.addWidget(self.preset_panel, 1)

@@ -7,10 +7,12 @@ from components.shortcut_recorder import ShortcutRecorderDialog
 import utils.shortcut_loader_utils as shortcut_loader
 
 class ShortcutEditorPanel(QWidget):
-    def __init__(self, emitter):
+    def __init__(self, emitter, on_shortcuts_changed=None):
         super().__init__()
         self.emitter = emitter
         self._current_path = None
+        self.on_shortcuts_changed = on_shortcuts_changed
+
         layout = QVBoxLayout(self)
 
         self.table = QTableWidget(0, 3)
@@ -44,12 +46,17 @@ class ShortcutEditorPanel(QWidget):
             self.table.setItem(row, 2, QTableWidgetItem(entry["description"]))
         self.table.blockSignals(False)
 
+    def _notify_change(self):
+        if callable(self.on_shortcuts_changed):
+            self.on_shortcuts_changed()
+
     def _on_item_changed(self, _item):
         self._save_current()
 
     def _add_shortcut(self):
         if not self._current_path:
             return
+        
         dlg = ShortcutRecorderDialog(self.emitter, self)
         if dlg.exec() == QDialog.DialogCode.Accepted:
             modifier, combo = dlg.get_result()
@@ -60,6 +67,7 @@ class ShortcutEditorPanel(QWidget):
                 _save_preset(self._current_path, data)
                 shortcut_loader.load_context_shortcuts(self._current_path)
                 self._refresh_table(data)
+                self._notify_change()
 
     def _delete_shortcut(self):
         row = self.table.currentRow()
@@ -70,6 +78,7 @@ class ShortcutEditorPanel(QWidget):
         _save_preset(self._current_path, data)
         shortcut_loader.load_context_shortcuts(self._current_path)
         self._refresh_table(data)
+        self._notify_change()
 
     def _save_current(self):
         if not self._current_path:
@@ -83,3 +92,4 @@ class ShortcutEditorPanel(QWidget):
             })
         _save_preset(self._current_path, data)
         shortcut_loader.load_context_shortcuts(self._current_path)
+        self._notify_change()
