@@ -9,10 +9,14 @@
         "category": "browser",
         "shortcut_file": "KeyboardShortcutOverlay/src/config/shortcut_lists/browser_shortcuts.json"
     },
-
     "Code.exe": {
         "application_name": "Visual Studio Code",
         "category": "development",
         "shortcut_file": "KeyboardShortcutOverlay/src/config/shortcut_lists/vscode_shortcuts.json"
+    },
+    "msedge.exe": {
+        "application_name": "Microsoft Edge",
+        "category": "browser",
+        "shortcut_file": "KeyboardShortcutOverlay/src/config/shortcut_lists/browser_shortcuts.json"
     }
 }
