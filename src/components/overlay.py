@@ -176,8 +176,3 @@ class Overlay(QWidget):
                 font-weight: bold;
             }}
         """)
-
-    def reload_shortcuts(self):
-        if self.current_modifier:
-            self._build_shortcut_list(self.current_modifier)
-            self.main_container.setFixedHeight(self.current_static_height)

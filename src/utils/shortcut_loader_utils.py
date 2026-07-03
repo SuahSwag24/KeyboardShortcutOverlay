@@ -41,31 +41,34 @@ _global_flat, _global_grouped = load_shortcuts(GLOBAL_PATH)
 SHORTCUTS_FLAT = dict(_global_flat)
 SHORTCUTS = build_grouped_shortcuts(_global_grouped)
 
-def load_context_shortcuts(context_path):
-    global SHORTCUTS_FLAT, SHORTCUTS
+def reload_shortcuts(path=None):
+    global SHORTCUTS_FLAT, SHORTCUTS, _global_flat, _global_grouped
 
-    resolved_path = resolve_shortcut_path(context_path)
-    context_flat, context_grouped = load_shortcuts(resolved_path)
-    merged_flat = {**_global_flat, **context_flat}
+    _global_flat, _global_grouped = load_shortcuts(GLOBAL_PATH)
+    resolved = resolve_shortcut_path(path) if path else None
+    is_global = (not resolved) or (os.path.abspath(resolved) == os.path.abspath(GLOBAL_PATH))
 
-    merged_grouped = {}
-    for mod, actions in _global_grouped.items():
-        merged_grouped[mod] = dict(actions)
-    for mod, actions in context_grouped.items():
-        if mod not in merged_grouped:
-            merged_grouped[mod] = {}
-        merged_grouped[mod].update(dict(actions))
+    if is_global:
+        SHORTCUTS_FLAT = dict(_global_flat)
+        SHORTCUTS = build_grouped_shortcuts(_global_grouped)
+    else:
+        context_flat, context_grouped = load_shortcuts(resolved)
+        merged_flat = {**_global_flat, **context_flat}
+        merged_grouped = {}
+        
+        for mod, actions in _global_grouped.items():
+            merged_grouped[mod] = dict(actions)
 
-    for mod in merged_grouped:
-        merged_grouped[mod] = list(merged_grouped[mod].items())
+        for mod, actions in context_grouped.items():
+            if mod not in merged_grouped:
+                merged_grouped[mod] = {}
+            merged_grouped[mod].update(dict(actions))
 
-    SHORTCUTS_FLAT = merged_flat
-    SHORTCUTS = build_grouped_shortcuts(merged_grouped)
+        for mod in merged_grouped:
+            merged_grouped[mod] = list(merged_grouped[mod].items())
 
-def reset_to_global():
-    global SHORTCUTS_FLAT, SHORTCUTS
-    SHORTCUTS_FLAT = dict(_global_flat)
-    SHORTCUTS = build_grouped_shortcuts(_global_grouped)
+        SHORTCUTS_FLAT = merged_flat
+        SHORTCUTS = build_grouped_shortcuts(merged_grouped)
 
 def get_shortcut_path(executable):
     app = _APP_MAP.get(executable)
