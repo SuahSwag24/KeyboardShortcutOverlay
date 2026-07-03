@@ -53,41 +53,6 @@ KEY_ORDER = [
     "Ctrl", "Alt", "Shift", "Cmd", "Tab"
 ]
 
-#   Define special keys
-SPECIAL_KEY_LABELS = {
-    # Navigation
-    "page_up":    "Page Up",
-    "page_down":  "Page Down",
-    "home":       "Home",
-    "end":        "End",
-    "insert":     "Insert",
-    "delete":     "Delete",
-
-    # Editing
-    "enter":      "Enter",
-    "backspace":  "Backspace",
-    "space":      "Space",
-    "tab":        "Tab",
-    "caps_lock":  "Caps Lock",
-    "esc":        "Esc",
-
-    # Function keys
-    "f1": "F1", "f2": "F2", "f3": "F3", "f4": "F4",
-    "f5": "F5", "f6": "F6", "f7": "F7", "f8": "F8",
-    "f9": "F9", "f10": "F10", "f11": "F11", "f12": "F12",
-
-    # Numpad
-    "num_lock":   "Num Lock",
-
-    # Arrow keys
-    "up":    "↑", "down": "↓", "left": "←", "right": "→",
-    
-    # Media / system
-    "print_screen": "Print Screen",
-    "scroll_lock":  "Scroll Lock",
-    "pause":        "Pause",
-}
-
 VK_OEM_LABELS = {
     # Function keys
     112: "F1",  113: "F2",  114: "F3",  115: "F4",
