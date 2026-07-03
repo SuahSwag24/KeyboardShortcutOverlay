@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QHBoxLayout, QWidget, QLabel, QVBoxLayout
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFontMetrics, QGuiApplication
+from PyQt6.QtGui import QGuiApplication
 from config.settings import MODIFIERS, SHORTCUT_ROW_HEIGHT, TITLE_HEIGHT, load_user_config
 import utils.shortcut_loader_utils as shortcut_loader
 from animations.flash_shortcut_animation import FlashShortcutAnimation
@@ -32,18 +32,8 @@ class Overlay(QWidget):
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.main_container = QWidget(self)
-        self.main_container.setStyleSheet(f"""
-            QWidget {{
-                background-color: rgba(30, 30, 30, {self._bg_alpha});
-                border-radius: 12px;
-            }}
-            QLabel {{
-                color: rgba(255, 255, 255, {self._text_alpha});
-                font-size: {self._font_size}px;
-                font-family: Segoe UI;
-                font-weight: bold;   
-            }}
-        """)
+        self.main_container.setObjectName("main_container")
+        self._apply_stylesheet()
 
         base_layout = QVBoxLayout(self)
         base_layout.setContentsMargins(0, 0, 0, 0)
@@ -55,6 +45,7 @@ class Overlay(QWidget):
         self.container_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
         self.title = QLabel("Shortcut list:", self.main_container)
+        self.title.setObjectName("title")
         self.title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.title.setFixedHeight(TITLE_HEIGHT)
         self.title.setStyleSheet("padding: 10px 16px;")
@@ -99,11 +90,13 @@ class Overlay(QWidget):
         for combo, description in shortcuts:
             row_widget = QWidget()
             row_widget.setFixedHeight(SHORTCUT_ROW_HEIGHT)
+            row_widget.setObjectName("row_widget")
 
             row_layout = QHBoxLayout(row_widget)
             row_layout.setContentsMargins(16, 0, 16, 0)
 
             label = QLabel(f"{combo} -> {description}")
+            label.setObjectName("shortcut_label")
             label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
 
             row_widget.setProperty("combo", combo)
@@ -162,12 +155,22 @@ class Overlay(QWidget):
 
     def _apply_stylesheet(self):
         self.main_container.setStyleSheet(f"""
-            QWidget {{
+            QWidget#main_container{{
                 background-color: rgba(30, 30, 30, {self._bg_alpha});
                 border-radius: 12px;
             }}
-            QLabel {{
+            QLabel#title {{
                 color: rgba(255, 255, 255, {self._text_alpha});
+                font-size: {self._font_size}px;
+                font-family: Segoe UI;
+                font-weight: bold;
+            }}
+            QLabel#shortcut_layout{{
+                font-size: {self._font_size}px;
+                font-family: Segoe UI;
+                font-weight: bold;
+            }}
+            QLabel#shortcut_label{{
                 font-size: {self._font_size}px;
                 font-family: Segoe UI;
                 font-weight: bold;
