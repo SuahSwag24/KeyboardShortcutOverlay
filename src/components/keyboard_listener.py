@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QObject, pyqtSignal
 from pynput import keyboard
 import utils.shortcut_loader_utils as shortcut_loader
-from utils.key_utils import format_keys, normalize_keys, normalize_modifiers
+from utils.key_utils import format_keys
 
 class KeySignalEmitter(QObject):
     #   Intiating Signals

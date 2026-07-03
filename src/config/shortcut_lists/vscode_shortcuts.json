@@ -68,5 +68,15 @@
     "modifier": "ctrl",
     "combo": "Ctrl + S",
     "description": "Save"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + \u2190",
+    "description": "Go Back"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + \u2192",
+    "description": "Go Forward"
   }
 ]
