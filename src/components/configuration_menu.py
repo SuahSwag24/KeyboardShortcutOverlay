@@ -202,7 +202,6 @@ class ConfigurationWindow(QWidget):
         super().__init__()
 
         app_info = get_app_info()
-        print(app_info)
 
         tabs = QTabWidget()
         self.general_tab = GeneralConfigurations()
