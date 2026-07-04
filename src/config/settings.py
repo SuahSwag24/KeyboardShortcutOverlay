@@ -93,7 +93,7 @@ VK_OEM_LABELS = {
 }
 
 APP_INFO = {
-    "version_number": "1.3"
+    "version_number": "1.2"
 }
 
 def get_app_info():
