@@ -55,11 +55,6 @@
     "description": "Open Next"
   },
   {
-    "modifier": "ctrl+shift",
-    "combo": "Ctrl + Shift",
-    "description": "Open Previous"
-  },
-  {
     "modifier": "ctrl",
     "combo": "Ctrl + J",
     "description": "Open/Close Bottom Bar"
