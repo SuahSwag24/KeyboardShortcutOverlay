@@ -1,7 +1,8 @@
 from PyQt6.QtCore import QObject, pyqtSignal
 from pynput import keyboard
+from exceptions.keyboard_exception import UnknownKeyError
 import utils.shortcut_loader_utils as shortcut_loader
-from utils.key_utils import format_keys, normalize_keys, normalize_modifiers
+from utils.key_utils import format_keys
 
 class KeySignalEmitter(QObject):
     #   Intiating Signals
@@ -42,7 +43,10 @@ class KeySignalEmitter(QObject):
         if canonical not in self.keys_pressed:
             self.keys_pressed.add(canonical)
             self.keys_changed.emit(self.keys_pressed)
-            self.check_shortcuts_executed()
+            try:
+                self.check_shortcuts_executed()
+            except UnknownKeyError as e:
+                print(f"Warning: {e}")
 
     def on_release(self, key):
         if not self.listener:

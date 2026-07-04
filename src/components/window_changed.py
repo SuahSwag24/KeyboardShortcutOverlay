@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout
 from PyQt6.QtCore import Qt, QTimer, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QGuiApplication
 from config.settings import load_user_config
-from utils.shortcut_loader_utils import get_shortcut_path, load_context_shortcuts, reset_to_global
+from utils.shortcut_loader_utils import get_shortcut_path, reload_shortcuts
 
 NOTIF_HEIGHT = 52
 NOTIF_ANCHOR_Y = 10  # distance from top of screen
@@ -98,8 +98,4 @@ class WindowChangeNotification(QWidget):
 
     def on_window_changed(self, executable):
         shortcut_path = get_shortcut_path(executable)
-
-        if shortcut_path:
-            load_context_shortcuts(shortcut_path)
-        else:
-            reset_to_global()
+        reload_shortcuts(shortcut_path)

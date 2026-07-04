@@ -65,7 +65,7 @@ class ShortcutEditorPanel(QWidget):
                 data = _load_preset(self._current_path)
                 data.append({"modifier": modifier, "combo": combo, "description": desc.strip()})
                 _save_preset(self._current_path, data)
-                shortcut_loader.load_context_shortcuts(self._current_path)
+                shortcut_loader.reload_shortcuts(self._current_path)
                 self._refresh_table(data)
                 self._notify_change()
 
@@ -76,7 +76,7 @@ class ShortcutEditorPanel(QWidget):
         data = _load_preset(self._current_path)
         data.pop(row)
         _save_preset(self._current_path, data)
-        shortcut_loader.load_context_shortcuts(self._current_path)
+        shortcut_loader.reload_shortcuts(self._current_path)
         self._refresh_table(data)
         self._notify_change()
 
@@ -91,5 +91,5 @@ class ShortcutEditorPanel(QWidget):
                 "description": self.table.item(r, 2).text() if self.table.item(r, 2) else "",
             })
         _save_preset(self._current_path, data)
-        shortcut_loader.load_context_shortcuts(self._current_path)
+        shortcut_loader.reload_shortcuts(self._current_path)
         self._notify_change()

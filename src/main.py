@@ -1,6 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication
 from components.window_changed import WindowChangeNotification
+from utils.shortcut_loader_utils import reload_shortcuts
 from utils.timer_util import BackgroundTimerUtil
 from components.keyboard_listener import KeySignalEmitter
 from components.overlay import Overlay
@@ -12,7 +13,7 @@ app.setQuitOnLastWindowClosed(False)
 
 overlay = Overlay()
 emitter = KeySignalEmitter()
-config_menu = ConfigurationWindow(emitter, on_shortcuts_changed=overlay.reload_shortcuts)
+config_menu = ConfigurationWindow(emitter, on_shortcuts_changed=reload_shortcuts)
 
 tray_icon = setup_system_tray(app, config_menu, emitter)
 

@@ -55,11 +55,6 @@
     "description": "Open Next"
   },
   {
-    "modifier": "ctrl+shift",
-    "combo": "Ctrl + Shift",
-    "description": "Open Previous"
-  },
-  {
     "modifier": "ctrl",
     "combo": "Ctrl + J",
     "description": "Open/Close Bottom Bar"
@@ -68,5 +63,20 @@
     "modifier": "ctrl",
     "combo": "Ctrl + S",
     "description": "Save"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + \u2190",
+    "description": "Go Back"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + \u2192",
+    "description": "Go Forward"
+  },
+  {
+    "modifier": "alt+shift",
+    "combo": "Alt + Shift + R",
+    "description": "Reveal in File Explorer"
   }
 ]

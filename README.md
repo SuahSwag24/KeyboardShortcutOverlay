@@ -5,4 +5,4 @@ A desktop overlay that shows lists of shortcuts based on modifier (Ctrl, Shift, 
 - @SuahSwag24 (Suah Li Jea Richie)
 
 ## Roadmap
-- Setup a packaged executable for the software
+- No defined roadmap at the current moment

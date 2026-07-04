@@ -26,13 +26,12 @@ class FlashShortcutAnimation:
                     label_widget.setGraphicsEffect(None)
                     if row_combo == combo:
                         target_row_label = label_widget
-                        label_widget.setStyleSheet("color: #ffffff;")
+                        label_widget.setVisible(True)
                     else:
-                        label_widget.setStyleSheet("color: transparent;")
+                        label_widget.setVisible(False)
 
         self.overlay.main_container.setFixedHeight(self.overlay.current_static_height)
         self.overlay.show()
-        self.overlay.title.setStyleSheet("color: transparent; padding: 10px 16px;")
 
         if target_row_label:
             self.animate_row_fade(target_row_label)
@@ -44,7 +43,7 @@ class FlashShortcutAnimation:
         label_widget.setGraphicsEffect(effect)
 
         animation = QPropertyAnimation(effect, b"opacity")
-        animation.setDuration(1500)
+        animation.setDuration(800)
         animation.setStartValue(1.0)
         animation.setEndValue(0.0)
         animation.setEasingCurve(QEasingCurve.Type.OutQuad)
@@ -58,12 +57,10 @@ class FlashShortcutAnimation:
         self.active_animations.clear()
 
         if hasattr(self.overlay, "current_modifier") and self.overlay.current_modifier:
-            self.overlay.title.setStyleSheet("color: #ffffff; padding: 10px 16px;")
             self.overlay._build_shortcut_list(self.overlay.current_modifier)
             self.overlay.main_container.setFixedHeight(self.overlay.current_static_height)
             self.overlay.show()
         else:
-            self.overlay.title.setStyleSheet("color: #ffffff; padding: 10px 16px;")
             self.overlay.hide()
             self.overlay.clear_shortcuts()
 

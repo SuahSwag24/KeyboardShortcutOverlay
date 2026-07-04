@@ -1,10 +1,10 @@
-from PyQt6.QtWidgets import QHBoxLayout, QWidget, QLabel, QVBoxLayout
+from PyQt6.QtWidgets import QHBoxLayout, QWidget, QLabel, QVBoxLayout, QSizePolicy
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFontMetrics, QGuiApplication
+from PyQt6.QtGui import QGuiApplication
 from config.settings import MODIFIERS, SHORTCUT_ROW_HEIGHT, TITLE_HEIGHT, load_user_config
 import utils.shortcut_loader_utils as shortcut_loader
 from animations.flash_shortcut_animation import FlashShortcutAnimation
-from utils.key_utils import normalize_modifiers
+from utils.key_utils import normalize_modifiers, parse_combo
 
 class Overlay(QWidget):
     def __init__(self):
@@ -32,18 +32,8 @@ class Overlay(QWidget):
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.main_container = QWidget(self)
-        self.main_container.setStyleSheet(f"""
-            QWidget {{
-                background-color: rgba(30, 30, 30, {self._bg_alpha});
-                border-radius: 12px;
-            }}
-            QLabel {{
-                color: rgba(255, 255, 255, {self._text_alpha});
-                font-size: {self._font_size}px;
-                font-family: Segoe UI;
-                font-weight: bold;   
-            }}
-        """)
+        self.main_container.setObjectName("main_container")
+        self._apply_stylesheet()
 
         base_layout = QVBoxLayout(self)
         base_layout.setContentsMargins(0, 0, 0, 0)
@@ -54,14 +44,16 @@ class Overlay(QWidget):
         self.container_layout.setSpacing(0)
         self.container_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        self.title = QLabel("Shortcut list:", self.main_container)
-        self.title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.title.setFixedHeight(TITLE_HEIGHT)
-        self.title.setStyleSheet("padding: 10px 16px;")
-        self.container_layout.addWidget(self.title)
+        self.title_widget = QWidget(self.main_container)
+        self.title_widget.setFixedHeight(TITLE_HEIGHT)
+
+        self.title_layout = QHBoxLayout(self.title_widget)
+        self.title_layout.setContentsMargins(16, 10, 16, 10)
+        self.title_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.container_layout.addWidget(self.title_widget)
 
         self.shortcut_layout = QVBoxLayout()
-        self.shortcut_layout.setSpacing(0)
+        self.shortcut_layout.setSpacing(8)
         self.shortcut_layout.setContentsMargins(0, 0, 0, 0)
         self.container_layout.addLayout(self.shortcut_layout)
 
@@ -86,33 +78,70 @@ class Overlay(QWidget):
         
     def _build_shortcut_list(self, modifiers):
         self.clear_shortcuts()
+
         shortcuts = shortcut_loader.SHORTCUTS.get(modifiers, [])
         shortcuts = shortcuts[:self._list_item_count]
 
-        if not shortcuts:
-            label = QLabel(f"No shortcuts defined for this modifier.")
-            label.setStyleSheet("padding: 10px 16px")
-            self.shortcut_layout.addWidget(label)
-            self.main_container.setFixedHeight(SHORTCUT_ROW_HEIGHT + TITLE_HEIGHT)
-            self.show()
+        while self.title_layout.count():
+            item = self.title_layout.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
+
+        modifier_keys = [getattr(m, 'name', str(m)).replace('Key.', '').strip() for m in modifiers]
+        for mod in modifier_keys:
+            mod_label = QLabel(f"{mod.capitalize()}")
+            mod_label.setObjectName("key_block")
+            self.title_layout.addWidget(mod_label)
+            
+        title_text = QLabel(" Shortcuts")
+        title_text.setStyleSheet(f"color: rgba(255, 255, 255, {self._text_alpha}); font-size: {self._font_size}px; font-weight: bold; font-family: Segoe UI;")
+        self.title_layout.addWidget(title_text)
 
         for combo, description in shortcuts:
             row_widget = QWidget()
             row_widget.setFixedHeight(SHORTCUT_ROW_HEIGHT)
-
+            row_widget.setObjectName("row_widget")
+            
+            sp = row_widget.sizePolicy()
+            sp.setRetainSizeWhenHidden(True)
+            row_widget.setSizePolicy(sp)
+            
             row_layout = QHBoxLayout(row_widget)
             row_layout.setContentsMargins(16, 0, 16, 0)
 
-            label = QLabel(f"{combo} -> {description}")
-            label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+            keys = parse_combo(combo)
+
+            for key in keys:
+                if key.lower() in [m.lower() for m in modifier_keys]:
+                    continue
+
+                key_label = QLabel(f"{key}")
+                key_label.setObjectName("key_block")
+                key_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+                key_lower = key.lower()
+                if key_lower in ['shift', 'ctrl', 'alt', 'cmd']:
+                    key_label.setMinimumWidth(50)
+                elif key_lower == 'space':
+                    key_label.setMinimumWidth(80)
+                else:
+                    key_label.setMinimumWidth(30)
+
+                row_layout.addWidget(key_label)
+
+            desc_label = QLabel(description)
+            desc_label.setObjectName("desc_label")
+            desc_label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+
+            row_layout.addWidget(desc_label)
+            row_layout.addStretch()
 
             row_widget.setProperty("combo", combo)
-            row_widget.setProperty("label_widget", label)
-
-            row_layout.addWidget(label)
+            row_widget.setProperty("label_widget", row_widget)
+            
             self.shortcut_layout.addWidget(row_widget)
 
-        self.current_static_height = (len(shortcuts) * SHORTCUT_ROW_HEIGHT) + TITLE_HEIGHT
+        self.current_static_height = (len(shortcuts) * SHORTCUT_ROW_HEIGHT) + TITLE_HEIGHT + (max(0, len(shortcuts) - 1) * 8)
     
     def update_keys(self, keys_pressed):
         modifiers_held = frozenset(key for key in keys_pressed if key in MODIFIERS)
@@ -124,7 +153,8 @@ class Overlay(QWidget):
         if keys_pressed and self.current_modifier:
             self._build_shortcut_list(self.current_modifier)
             self.main_container.setFixedHeight(self.current_static_height)
-            self.title.setStyleSheet("color: #ffffff; padding: 10px 16px;")
+            self.adjustSize()
+            self.position_window()
             self.show()
         else:
             self.hide()
@@ -162,19 +192,40 @@ class Overlay(QWidget):
 
     def _apply_stylesheet(self):
         self.main_container.setStyleSheet(f"""
-            QWidget {{
+            QWidget#main_container{{
                 background-color: rgba(30, 30, 30, {self._bg_alpha});
                 border-radius: 12px;
             }}
-            QLabel {{
+            QLabel#title {{
                 color: rgba(255, 255, 255, {self._text_alpha});
                 font-size: {self._font_size}px;
                 font-family: Segoe UI;
                 font-weight: bold;
             }}
+            QLabel#shortcut_layout{{
+                font-size: {self._font_size}px;
+                font-family: Segoe UI;
+                font-weight: bold;
+            }}
+            QLabel#shortcut_label{{
+                font-size: {self._font_size}px;
+                font-family: Segoe UI;
+                font-weight: bold;
+            }}
+            QLabel#key_block {{
+                background-color: rgba(80, 80, 80, {self._bg_alpha});
+                color: rgba(255, 255, 255, {self._text_alpha});
+                border: 1px solid rgba(120, 120, 120, {self._bg_alpha});
+                border-radius: 4px;
+                padding: 2px 6px;
+                font-size: {self._font_size}px;
+                font-family: Segoe UI;
+                font-weight: bold;
+            }}
+            QLabel#desc_label {{
+                color: rgba(255, 255, 255, {self._text_alpha});
+                font-size: {self._font_size}px;
+                font-family: Segoe UI;
+                padding-left: 8px;
+            }}
         """)
-
-    def reload_shortcuts(self):
-        if self.current_modifier:
-            self._build_shortcut_list(self.current_modifier)
-            self.main_container.setFixedHeight(self.current_static_height)

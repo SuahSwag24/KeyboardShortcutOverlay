@@ -1,0 +1,2 @@
+class UnknownKeyError(Exception):
+    pass

@@ -202,7 +202,6 @@ class ConfigurationWindow(QWidget):
         super().__init__()
 
         app_info = get_app_info()
-        print(app_info)
 
         tabs = QTabWidget()
         self.general_tab = GeneralConfigurations()
@@ -230,7 +229,7 @@ class ShortcutKeyConfigurationMenu(QWidget):
         
         layout = QHBoxLayout(self)
 
-        self.app_panel = AppMappingPanel()
+        self.app_panel = AppMappingPanel(on_mapping_changed=on_shortcuts_changed)
         self.editor_panel = ShortcutEditorPanel(emitter, on_shortcuts_changed=on_shortcuts_changed)
         self.preset_panel = PresetListPanel(on_select = self._on_preset_selected)
 

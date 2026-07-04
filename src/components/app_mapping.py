@@ -7,8 +7,10 @@ from PyQt6.QtWidgets import (
 from utils.preset_util import _load_category, _save_category
 
 class AppMappingPanel(QWidget):
-    def __init__(self):
+    def __init__(self, on_mapping_changed=None):
         super().__init__()
+        self.on_mapping_changed = on_mapping_changed
+
         self._current_preset_path = None
         layout = QVBoxLayout(self)
         layout.addWidget(QLabel("Mapped Applications:"))
@@ -29,6 +31,10 @@ class AppMappingPanel(QWidget):
         self._current_preset_path = preset_path
         self._refresh()
         self._update_lock_state()
+
+    def _notify_change(self):
+        if callable(self.on_mapping_changed):
+            self.on_mapping_changed()
 
     def _refresh(self):
         self.list_widget.clear()
@@ -71,6 +77,7 @@ class AppMappingPanel(QWidget):
         }
         _save_category(cat_data)
         self._refresh()
+        self._notify_change()
 
     def _remove_app(self):
         row = self.list_widget.currentRow()
@@ -81,6 +88,7 @@ class AppMappingPanel(QWidget):
         cat_data.pop(exe, None)
         _save_category(cat_data)
         self._refresh()
+        self._notify_change()
 
     def _update_lock_state(self):
         is_global = (
