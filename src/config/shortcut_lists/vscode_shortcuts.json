@@ -73,5 +73,10 @@
     "modifier": "alt",
     "combo": "Alt + \u2192",
     "description": "Go Forward"
+  },
+  {
+    "modifier": "alt+shift",
+    "combo": "Alt + Shift + R",
+    "description": "Reveal in File Explorer"
   }
 ]
