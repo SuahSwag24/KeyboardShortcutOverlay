@@ -4,7 +4,7 @@ from PyQt6.QtGui import QGuiApplication
 from config.settings import MODIFIERS, SHORTCUT_ROW_HEIGHT, TITLE_HEIGHT, load_user_config
 import utils.shortcut_loader_utils as shortcut_loader
 from animations.flash_shortcut_animation import FlashShortcutAnimation
-from utils.key_utils import normalize_modifiers
+from utils.key_utils import normalize_modifiers, parse_combo
 
 class Overlay(QWidget):
     def __init__(self):
@@ -109,7 +109,7 @@ class Overlay(QWidget):
             row_layout = QHBoxLayout(row_widget)
             row_layout.setContentsMargins(16, 0, 16, 0)
 
-            keys = [k.strip() for k in combo.split('+')]
+            keys = parse_combo(combo)
 
             for key in keys:
                 if key.lower() in [m.lower() for m in modifier_keys]:

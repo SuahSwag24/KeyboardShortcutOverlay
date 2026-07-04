@@ -68,7 +68,7 @@ VK_OEM_LABELS = {
 
     # Editing
     13: "Enter", 8: "Backspace", 27: "Esc",
-    32: "Space", 9: "Tab",
+    32: "Space", 9: "Tab", 20: "Caps Lock",
 
     # Numpad
     96: "Num 0", 97: "Num 1", 98: "Num 2", 99: "Num 3",
@@ -81,6 +81,15 @@ VK_OEM_LABELS = {
     186: ";",   187: "=",  188: ",",  189: "-",
     190: ".",   191: "/",  192: "`",  219: "[",
     220: "\\",  221: "]",  222: "'",
+
+    #   Media Keys
+    173: "Mute",
+    174: "Volume Down",
+    175: "Volume Up",
+    176: "Media Next",
+    177: "Media Prev",
+    178: "Media Stop",
+    179: "Media Play/Pause",
 }
 
 APP_INFO = {
