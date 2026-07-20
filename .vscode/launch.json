@@ -6,6 +6,17 @@
             "request": "launch",
             "program": "src/main.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Test: Overlay Latency",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/test_overlay_latency.py",
+            "cwd": "${workspaceFolder}/src",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src"
+            },
+            "console": "integratedTerminal"
         }
     ]
 }
