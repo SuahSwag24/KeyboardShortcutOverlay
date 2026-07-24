@@ -93,5 +93,10 @@
     "modifier": "cmd",
     "combo": "Cmd + P",
     "description": "Project"
+  },
+  {
+    "modifier": "shift+cmd",
+    "combo": "Shift + Cmd + S",
+    "description": "Snip Tool"
   }
 ]

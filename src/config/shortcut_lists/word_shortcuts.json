@@ -1,0 +1,182 @@
+[
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + N",
+    "description": "Create a new document"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + O",
+    "description": "Open a document"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + S",
+    "description": "Save the document"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + P",
+    "description": "Print the document"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + W",
+    "description": "Close the document"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + B",
+    "description": "Apply bold formatting"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + I",
+    "description": "Apply italic formatting"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + U",
+    "description": "Apply underline formatting"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + F",
+    "description": "Find text"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + H",
+    "description": "Replace text"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + K",
+    "description": "Insert a hyperlink"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + L",
+    "description": "Align text left"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + E",
+    "description": "Align text center"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + R",
+    "description": "Align text right"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + J",
+    "description": "Justify text"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + M",
+    "description": "Indent the paragraph"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + T",
+    "description": "Create a hanging indent"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + Enter",
+    "description": "Insert a page break"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + 1",
+    "description": "Single line spacing"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + 2",
+    "description": "Double line spacing"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + 5",
+    "description": "1.5 line spacing"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + ]",
+    "description": "Increase font size by 1 point"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + [",
+    "description": "Decrease font size by 1 point"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + C",
+    "description": "Copy formatting"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + V",
+    "description": "Paste formatting"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + L",
+    "description": "Apply a bulleted list"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + >",
+    "description": "Increase font size"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + <",
+    "description": "Decrease font size"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + A",
+    "description": "Format all letters as uppercase"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + W",
+    "description": "Underline words but not spaces"
+  },
+  {
+    "modifier": "alt+shift",
+    "combo": "Alt + Shift + D",
+    "description": "Insert the current date"
+  },
+  {
+    "modifier": "alt+shift",
+    "combo": "Alt + Shift + T",
+    "description": "Insert the current time"
+  },
+  {
+    "modifier": "ctrl+alt",
+    "combo": "Ctrl + Alt + C",
+    "description": "Insert copyright symbol"
+  },
+  {
+    "modifier": "ctrl+alt",
+    "combo": "Ctrl + Alt + R",
+    "description": "Insert registered trademark symbol"
+  },
+  {
+    "modifier": "ctrl+alt",
+    "combo": "Ctrl + Alt + T",
+    "description": "Insert trademark symbol"
+  },
+  {
+    "modifier": "ctrl+alt",
+    "combo": "Ctrl + Alt + M",
+    "description": "Insert a comment"
+  }
+]
