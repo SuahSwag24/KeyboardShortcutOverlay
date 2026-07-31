@@ -54,6 +54,28 @@ python main.py
    - **Pre-built executable:** Extract the ZIP and run `KeyboardShortcutOverlay.exe` directly — no Python installation required.
    - **Source code package:** Extract the ZIP, then follow steps 3-4 under "Option 1" above (install dependencies, run `python main.py`).
 
+
+## Application Behavior on Startup
+ 
+When executed (either via `python main.py` or the `.exe`), the app does not show a window immediately:
+ 
+1. The app launches and briefly delays before becoming active.
+2. Once initialized, it runs silently in the background, listening for modifier key presses (Ctrl, Shift, etc.).
+3. No main window is shown — the app waits for user input in this state.
+4. When a modifier key is pressed, the shortcut overlay appears as expected; the app continues running normally in the background afterward.
+5. A new system tray icon appears and many of the configuration functionality is located in the system tray
+> This is expected behavior — the absence of an initial window is not a bug or hang, it's the app entering its listening state.
+ 
+## How to Terminate the Application
+ 
+The app has no visible main window or taskbar entry to close, so it must be exited via the **system tray**:
+ 
+1. Locate the app's icon in the Windows system tray (bottom-right corner, near the clock). It uses the default Windows monitor icon unless a custom icon has been set.
+   - If not visible, click the **^** (show hidden icons) arrow in the tray to expand it.
+2. **Right-click** the tray icon.
+3. Select **Exit** (or the equivalent close/quit option) from the context menu.
+> Closing via Task Manager also works as a fallback, but exiting through the tray icon is the intended method.
+
 ## Notes / Known Limitations
 
 - Runs with standard (non-admin) user privileges
