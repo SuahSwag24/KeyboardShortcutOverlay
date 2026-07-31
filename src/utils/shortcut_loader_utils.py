@@ -32,7 +32,9 @@ def load_shortcuts(path):
 def build_grouped_shortcuts(grouped):
     result = {}
     for key_combo, actions in grouped.items():
-        keys = frozenset(MODIFIER_MAP[k] for k in key_combo.split("+"))
+        keys = frozenset(
+            MODIFIER_MAP[k] for k in key_combo.split("+") if k in MODIFIER_MAP
+        )
         result[keys] = actions
     return result
 

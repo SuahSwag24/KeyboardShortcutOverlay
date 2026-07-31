@@ -10,8 +10,9 @@ class FlashShortcutAnimation:
     def flash_shortcut(self, combo, description=None):
         if self.active_animations:
             self._interrupt_current_animation()
-            self.overlay._build_shortcut_list(self.overlay.current_modifier)
-        
+
+        target_page = self.overlay.find_page_for_combo(combo)
+        self.overlay._build_shortcut_list(self.overlay.current_modifier, page=target_page)
         self.is_animating = True
         target_row_label = None
 
@@ -60,6 +61,7 @@ class FlashShortcutAnimation:
             self.overlay._build_shortcut_list(self.overlay.current_modifier)
             self.overlay.main_container.setFixedHeight(self.overlay.current_static_height)
             self.overlay.show()
+            self.overlay.pagination_animation.start()
         else:
             self.overlay.hide()
             self.overlay.clear_shortcuts()

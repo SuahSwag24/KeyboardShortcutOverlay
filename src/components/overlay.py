@@ -4,6 +4,7 @@ from PyQt6.QtGui import QGuiApplication
 from config.settings import MODIFIERS, SHORTCUT_ROW_HEIGHT, TITLE_HEIGHT, load_user_config
 import utils.shortcut_loader_utils as shortcut_loader
 from animations.flash_shortcut_animation import FlashShortcutAnimation
+from animations.shortcut_page_animation import ShortcutPageAnimation
 from utils.key_utils import normalize_modifiers, parse_combo
 
 class Overlay(QWidget):
@@ -21,6 +22,7 @@ class Overlay(QWidget):
 
         #   Overlay states
         self.animation_manager = FlashShortcutAnimation(self)
+        self.pagination_animation = ShortcutPageAnimation(self)
         self.current_modifier = None
 
         self.setWindowFlags(
@@ -76,11 +78,17 @@ class Overlay(QWidget):
             if widget is not None:
                 widget.deleteLater()
         
-    def _build_shortcut_list(self, modifiers):
+    def _build_shortcut_list(self, modifiers, page=0):
         self.clear_shortcuts()
 
-        shortcuts = shortcut_loader.SHORTCUTS.get(modifiers, [])
-        shortcuts = shortcuts[:self._list_item_count]
+        all_shortcuts = shortcut_loader.SHORTCUTS.get(modifiers, [])
+        total = len(all_shortcuts)
+        max_rows = self._list_item_count
+
+        start = page * max_rows
+        shortcuts = all_shortcuts[start : start + max_rows]
+        self._total_pages = (total + max_rows - 1) // max_rows  # ceil division
+        self._current_page = page
 
         while self.title_layout.count():
             item = self.title_layout.takeAt(0)
@@ -151,15 +159,19 @@ class Overlay(QWidget):
             return
         
         if keys_pressed and self.current_modifier:
+            self.pagination_animation.stop()
             self._build_shortcut_list(self.current_modifier)
             self.main_container.setFixedHeight(self.current_static_height)
             self.adjustSize()
             self.position_window()
             self.show()
+            self.pagination_animation.start()
         else:
+            self.pagination_animation.stop()
             self.hide()
 
     def animate_execute(self, combo, description):
+        self.pagination_animation.stop()
         self.animation_manager.flash_shortcut(combo, description)
 
     def set_opacity(self, value: float):
@@ -229,3 +241,10 @@ class Overlay(QWidget):
                 padding-left: 8px;
             }}
         """)
+
+    def find_page_for_combo(self, combo):
+        all_shortcuts = shortcut_loader.SHORTCUTS.get(self.current_modifier, [])
+        for i, (c, _) in enumerate(all_shortcuts):
+            if c == combo:
+                return i // self._list_item_count
+        return 0

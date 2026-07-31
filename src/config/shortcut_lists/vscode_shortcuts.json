@@ -22,7 +22,7 @@
   {
     "modifier": "ctrl",
     "combo": "Ctrl + ,",
-    "description": "User Settings"
+    "description": "Settings"
   },
   {
     "modifier": "ctrl",
@@ -37,7 +37,7 @@
   {
     "modifier": "ctrl",
     "combo": "Ctrl + S",
-    "description": "Save File"
+    "description": "Save"
   },
   {
     "modifier": "ctrl+shift",
@@ -47,22 +47,152 @@
   {
     "modifier": "ctrl",
     "combo": "Ctrl + F4",
-    "description": "Close"
+    "description": "Close Editor"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + W",
+    "description": "Close Editor"
   },
   {
     "modifier": "ctrl",
     "combo": "Ctrl + Tab",
-    "description": "Open Next"
+    "description": "Next Editor"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + Tab",
+    "description": "Previous Editor"
   },
   {
     "modifier": "ctrl",
     "combo": "Ctrl + J",
-    "description": "Open/Close Bottom Bar"
+    "description": "Toggle Panel"
   },
   {
     "modifier": "ctrl",
-    "combo": "Ctrl + S",
-    "description": "Save"
+    "combo": "Ctrl + B",
+    "description": "Toggle Side Bar"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + E",
+    "description": "Explorer"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + F",
+    "description": "Search"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + G",
+    "description": "Source Control"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + D",
+    "description": "Run and Debug"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + X",
+    "description": "Extensions"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + `",
+    "description": "Toggle Terminal"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + `",
+    "description": "New Terminal"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + F",
+    "description": "Find"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + H",
+    "description": "Replace"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + F",
+    "description": "Find in Files"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + H",
+    "description": "Replace in Files"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + G",
+    "description": "Go to Line"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + O",
+    "description": "Go to Symbol in Editor"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + T",
+    "description": "Go to Symbol in Workspace"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + Space",
+    "description": "Trigger Suggest"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + Space",
+    "description": "Parameter Hints"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + .",
+    "description": "Quick Fix"
+  },
+  {
+    "modifier": "f",
+    "combo": "F2",
+    "description": "Rename Symbol"
+  },
+  {
+    "modifier": "f",
+    "combo": "F8",
+    "description": "Next Problem"
+  },
+  {
+    "modifier": "shift",
+    "combo": "Shift + F8",
+    "description": "Previous Problem"
+  },
+  {
+    "modifier": "f",
+    "combo": "F12",
+    "description": "Go to Definition"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + F12",
+    "description": "Peek Definition"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + F12",
+    "description": "Go to Implementation"
+  },
+  {
+    "modifier": "shift",
+    "combo": "Shift + F12",
+    "description": "Find References"
   },
   {
     "modifier": "alt",
@@ -78,5 +208,130 @@
     "modifier": "alt+shift",
     "combo": "Alt + Shift + R",
     "description": "Reveal in File Explorer"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + /",
+    "description": "Toggle Line Comment"
+  },
+  {
+    "modifier": "alt+shift",
+    "combo": "Alt + Shift + A",
+    "description": "Toggle Block Comment"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + \u2191",
+    "description": "Move Line Up"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + \u2193",
+    "description": "Move Line Down"
+  },
+  {
+    "modifier": "shift+alt",
+    "combo": "Shift + Alt + \u2191",
+    "description": "Copy Line Up"
+  },
+  {
+    "modifier": "shift+alt",
+    "combo": "Shift + Alt + \u2193",
+    "description": "Copy Line Down"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + D",
+    "description": "Add Selection to Next Match"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + L",
+    "description": "Select All Occurrences"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + U",
+    "description": "Undo Last Cursor Operation"
+  },
+  {
+    "modifier": "alt",
+    "combo": "Alt + Click",
+    "description": "Insert Cursor"
+  },
+  {
+    "modifier": "ctrl+alt",
+    "combo": "Ctrl + Alt + \u2191",
+    "description": "Insert Cursor Above"
+  },
+  {
+    "modifier": "ctrl+alt",
+    "combo": "Ctrl + Alt + \u2193",
+    "description": "Insert Cursor Below"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + L",
+    "description": "Select Current Line"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + X",
+    "description": "Cut Line (Empty Selection)"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + C",
+    "description": "Copy Line (Empty Selection)"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + Z",
+    "description": "Undo"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + Y",
+    "description": "Redo"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + Z",
+    "description": "Redo"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + A",
+    "description": "Select All"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + C",
+    "description": "Copy"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + V",
+    "description": "Paste"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + X",
+    "description": "Cut"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + R",
+    "description": "Open Recent"
+  },
+  {
+    "modifier": "ctrl+shift",
+    "combo": "Ctrl + Shift + M",
+    "description": "Problems Panel"
+  },
+  {
+    "modifier": "ctrl",
+    "combo": "Ctrl + K",
+    "description": "Chord Prefix"
   }
 ]

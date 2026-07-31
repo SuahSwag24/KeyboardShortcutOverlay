@@ -18,5 +18,10 @@
         "application_name": "Microsoft Edge",
         "category": "browser",
         "shortcut_file": "KeyboardShortcutOverlay/src/config/shortcut_lists/browser_shortcuts.json"
+    },
+    "WINWORD.EXE": {
+        "application_name": "Microsoft Word",
+        "category": "documentation",
+        "shortcut_file": "KeyboardShortcutOverlay/src/config/shortcut_lists/word_shortcuts.json"
     }
 }
